@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 import DatePicker from "react-datepicker";
 import { CalendarWrapper } from "./graficoPetStyles.js";
 import "react-datepicker/dist/react-datepicker.css";
@@ -22,7 +22,7 @@ export const RangoFechasPet = ({ onChange }) => {
     }
   };
 
-  const CustomInput = ({ value, onClick }, ref) => (
+  const CustomInput = forwardRef(({ value, onClick }, ref) => (
     <input
       ref={ref}
       value={value}
@@ -32,7 +32,7 @@ export const RangoFechasPet = ({ onChange }) => {
       onMouseEnter={() => setHoveringInput(true)}
       onMouseLeave={() => setHoveringInput(false)}
     />
-  );
+  ));
   return (
     <CalendarWrapper>
       <div className="contenedor-fecha">
@@ -50,7 +50,7 @@ export const RangoFechasPet = ({ onChange }) => {
           dropdownMode="select"
           onCalendarOpen={() => setIsCalendarOpen(true)}
           onCalendarClose={() => setIsCalendarOpen(false)}
-          customInput={CustomInput}
+          customInput={<CustomInput />}
         />
         <BsCalendar2Date
           className="icon-calendar"
