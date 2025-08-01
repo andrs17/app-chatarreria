@@ -57,13 +57,24 @@ export const obtenerVentasPET = async (req, res) => {
 };
 
 export const obtenerResumenVentasPET = async (req, res) => {
+  const { inicio, fin } = req.query;
+
+  let query = `
+    SELECT tp.nombre AS tipo_pet, SUM(vp.cantidad_kg) AS total_kg
+    FROM ventas_pet vp
+    JOIN tipos_pet tp ON vp.tipo_pet_id = tp.id
+  `;
+  const params = [];
+
+  if (inicio && fin) {
+    query += ` WHERE vp.fecha_venta BETWEEN ? AND ?`;
+    params.push(inicio, fin);
+  }
+
+  query += ` GROUP BY vp.tipo_pet_id`;
+
   try {
-    const [rows] = await db.execute(`
-      SELECT tp.nombre AS tipo_pet, SUM(vp.cantidad_kg) AS total_kg
-      FROM ventas_pet vp
-      JOIN tipos_pet tp ON vp.tipo_pet_id = tp.id
-      GROUP BY vp.tipo_pet_id
-    `);
+    const [rows] = await db.execute(query, params);
     res.json(rows);
   } catch (error) {
     console.error("Error al obtener resumen de ventas PET:", error);
@@ -81,20 +92,20 @@ export const obtenerVentasPetPorFecha = async (req, res) => {
   try {
     const [rows] = await db.execute(
       `
-      SELECT DATE(v.fecha_venta) AS fecha_venta, SUM(v.cantidad_kg) AS total_kg
+      SELECT 
+        v.fecha_venta,
+        v.cantidad_kg AS total_kg,
+        v.precio_unitario
       FROM ventas_pet v
       WHERE v.fecha_venta BETWEEN ? AND ?
-      GROUP BY DATE(v.fecha_venta)
-      ORDER BY fecha_venta ASC
+      ORDER BY v.fecha_venta ASC
     `,
       [inicio, fin]
     );
 
-    console.log(rows);
-
     res.status(200).json(rows);
   } catch (error) {
-    console.error("Error al obtener ventas por fecha:", error);
+    console.error("Error al obtener ventas individuales:", error);
     res.status(500).json({ error: "Error interno del servidor" });
   }
 };

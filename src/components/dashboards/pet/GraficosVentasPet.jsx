@@ -10,19 +10,33 @@ import {
   Cell,
 } from "recharts";
 import { ChartCard } from "./dashboardStyles.js";
+import { RangoFechasPet } from "./RangoFechasPet.jsx";
 
 export const VentasPetChart = () => {
   const [ventas, setVentas] = useState([]);
 
+  const [rango, setRango] = useState({
+    startDate: null,
+    endDate: null,
+  });
+
   useEffect(() => {
     const fetchVentas = async () => {
-      const data = await obtenerResumenVentasPet();
-      
+      let data;
+
+      if (rango.startDate && rango.endDate) {
+        const inicio = rango.startDate.toISOString().split("T")[0];
+        const fin = rango.endDate.toISOString().split("T")[0];
+        data = await obtenerResumenVentasPet(inicio, fin);
+      } else {
+        data = await obtenerResumenVentasPet(); // sin fechas
+      }
+
       setVentas(data);
     };
 
     fetchVentas();
-  }, []);
+  }, [rango]);
 
   const normalize = (str) =>
     str
@@ -48,6 +62,7 @@ export const VentasPetChart = () => {
   return (
     <ChartCard>
       <h2>Total por tipo de PET</h2>
+      <RangoFechasPet onChange={setRango} />
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={ventas}>
           <XAxis

@@ -1,10 +1,11 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import { CalendarWrapper } from "./graficoPetStyles.js";
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale } from "react-datepicker";
 import es from "date-fns/locale/es";
-import { BsCalendar2Date } from "react-icons/bs";
+import { IconoCalendario } from "./graficoPetStyles.js";
+import { CustomDateInput } from "../../shared/CustonDateInput.jsx";
 
 registerLocale("es", es);
 
@@ -20,19 +21,11 @@ export const RangoFechasPet = ({ onChange }) => {
     if (fechas[0] && fechas[1]) {
       onChange({ startDate: fechas[0], endDate: fechas[1] });
     }
+    if (fechas[0] === null && fechas[1] === null) {
+      onChange({ startDate: null, endDate: null });
+    }
   };
 
-  const CustomInput = ({ value, onClick }, ref) => (
-    <input
-      ref={ref}
-      value={value}
-      onClick={onClick}
-      readOnly
-      className="custom-date-input"
-      onMouseEnter={() => setHoveringInput(true)}
-      onMouseLeave={() => setHoveringInput(false)}
-    />
-  );
   return (
     <CalendarWrapper>
       <div className="contenedor-fecha">
@@ -50,17 +43,14 @@ export const RangoFechasPet = ({ onChange }) => {
           dropdownMode="select"
           onCalendarOpen={() => setIsCalendarOpen(true)}
           onCalendarClose={() => setIsCalendarOpen(false)}
-          customInput={CustomInput}
+          customInput={
+            <CustomDateInput
+              onMouseEnter={() => setHoveringInput(true)}
+              onMouseLeave={() => setHoveringInput(false)}
+            />
+          }
         />
-        <BsCalendar2Date
-          className="icon-calendar"
-          style={{
-            transform: hoveringInput || isCalendarOpen ? "scale(1.1)" : "scale(1)",
-            transition: "all 0.3s ease",
-            color: isCalendarOpen ? "#ffcc00" : "#7a8fa6",
-            filter: isCalendarOpen ? "drop-shadow(0 0 5px #ffcc00)" : "none",
-          }}
-        />
+        <IconoCalendario $hover={hoveringInput} $isOpen={isCalendarOpen} />
       </div>
     </CalendarWrapper>
   );

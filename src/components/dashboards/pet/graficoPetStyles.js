@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { BsCalendar2Date } from "react-icons/bs";
 import { theme } from "../../../styles/theme.js";
 
 export const GraficoWrapper = styled.div`
@@ -9,20 +10,20 @@ export const GraficoWrapper = styled.div`
   width: 50%;
   padding: 0.8rem;
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 3px 3px 5px ${({ theme }) => theme.colores.azulGris};
   margin-top: 2rem;
 `;
 
 export const Titulo = styled.h2`
   font-size: 1rem;
   margin-bottom: 1rem;
-  color: ${theme.colores.blancoHumo};
+  color: ${theme.colores.azulGris};
   text-align: center;
 `;
 
 export const NoDataText = styled.p`
   text-align: center;
-  color: ${theme.colores.blancoHumo};
+  color: ${theme.colores.azulGris};
   font-size: 1rem;
 `;
 
@@ -34,9 +35,8 @@ export const CalendarWrapper = styled.div`
   left: 4rem;
   width: 8rem;
   font-size: 0.8rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   text-align: center;
-  color: ${theme.colores.azulGris};
 
   .contenedor-fecha {
     position: relative;
@@ -48,7 +48,6 @@ export const CalendarWrapper = styled.div`
 
   .react-datepicker-wrapper {
     width: 100%;
-    cursor: pointer;
     position: relative;
     margin-top: 10px;
   }
@@ -57,18 +56,30 @@ export const CalendarWrapper = styled.div`
     padding: 8px 8px;
     border-radius: 12px;
     border: none;
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     width: 7rem;
     height: 2.5rem;
+    font-weight: 700;
     text-align: end;
-    transition: all 0.3s ease;
-  }
-
-  .icon-calendar {
-    position: absolute;
-    margin: 20px 65px 0 0;
-    color: ${theme.colores.amarillo};
-    font-size: 1.4rem;
     cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 3px 3px 5px ${({ theme }) => theme.colores.azulGris};
+    &:hover {
+      box-shadow: 3px 3px 5px ${({ theme }) => theme.colores.azulGris};
+      transform: scale(1.05);
+    }
   }
+`;
+
+export const IconoCalendario = styled(BsCalendar2Date)`
+  position: absolute;
+  margin: 10px 65px 0 0;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  color: ${({ $isOpen }) => ($isOpen ? "#ffcc00" : "#7a8fa6")};
+  transform: ${({ $hover }) => ($hover ? "scale(1.1)" : "scale(1)")};
+  filter: ${({ $isOpen }) =>
+    $isOpen ? "drop-shadow(0 0 5px #ffcc00)" : "none"};
 `;

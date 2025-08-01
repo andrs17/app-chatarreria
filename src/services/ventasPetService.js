@@ -12,9 +12,19 @@ export const obtenerVentasPet = async () => {
   return response.data;
 };
 
-export const obtenerResumenVentasPet = async () => {
-  const response = await axios.get(`${API_URL}/resumen`);
-  return response.data;
+export const obtenerResumenVentasPet = async (inicio, fin) => {
+  try {
+    let url = "/api/ventas-pet/resumen";
+    if (inicio && fin) {
+      url += `?inicio=${inicio}&fin=${fin}`;
+    }
+
+    const res = await fetch(url);
+    return await res.json();
+  } catch (error) {
+    console.error("Error al obtener resumen:", error);
+    return [];
+  }
 };
 
 export const obtenerVentasPetPorFecha = async (inicio, fin) => {
