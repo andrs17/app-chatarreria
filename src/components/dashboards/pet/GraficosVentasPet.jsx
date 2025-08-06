@@ -74,7 +74,7 @@ export const VentasPetChart = () => {
             dx={-40}
             dy={20}
           />
-          <Bar dataKey="total_kg" barSize={40} radius={[10, 10, 0, 0]}>
+          <Bar dataKey="total_kg" barSize={35} radius={[10, 10, 0, 0]}>
             {ventas.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={getColor(entry.tipo_pet)} />
             ))}

@@ -32,10 +32,10 @@ const Home = () => {
             Dashboard ventas
           </NavButton>
         </ButtonColumn>
-
-        <ImageSection>
+        <Dashboard />
+        {/*<ImageSection>
           <img src={homeImage} alt="Reciclaje PET" />
-        </ImageSection>
+        </ImageSection>*/}
 
         <ButtonColumn $position="right">
           <TitleEmpleados>Empleados</TitleEmpleados>
