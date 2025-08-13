@@ -1,16 +1,18 @@
-// src/pages/Dashboard.jsx
-import { VentasPetChart } from "../components/dashboards/pet/GraficosVentasPet.jsx";
-import { DashboardWrapper } from "../components/dashboards/pet/dashboardStyles.js";
-import { GraficoVentasPetPorFecha } from "../components/dashboards/pet/GraficoVentasPetPorFecha.jsx";
-const Dashboard = () => {
+import styled from "styled-components";
+import { DashboardSlider } from "../components/dashboards/DashboardSlider";
+
+export const Dashboard = () => {
   return (
-    <DashboardWrapper>
+    <CardsContainer>
       <h1>Dashboard de Ventas</h1>
-      <VentasPetChart />
-      <GraficoVentasPetPorFecha />
-      {/* Aquí luego puedes incluir VentasVidrioChart, VentasPastaChart, etc */}
-    </DashboardWrapper>
+
+      <DashboardSlider />
+    </CardsContainer>
   );
 };
 
-export default Dashboard;
+const CardsContainer = styled.div`
+  margin-top: 5rem;
+  border: 5px solid gray;
+  width: 100%;
+`;

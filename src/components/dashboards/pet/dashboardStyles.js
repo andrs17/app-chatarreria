@@ -2,18 +2,16 @@
 import styled from "styled-components";
 
 export const DashboardWrapper = styled.div`
-
-
   padding: 1.5rem;
   width: 100%;
-  h1{
-    color: ${({theme}) => theme.colores.verdeReciclaje};
-  }
+  border: 3px solid ;
+  background-color: red;
+ 
 
-  @media (max-width: ${({theme}) => theme.breakpoints.mobile}){
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     padding: 0;
 
-    h1{
+    h1 {
       font-size: 1.5rem;
     }
   }
@@ -28,7 +26,8 @@ export const ChartCard = styled.div`
   box-shadow: 3px 3px 5px ${({ theme }) => theme.colores.azulGris};
   padding: 1.5rem;
   margin-bottom: 2rem;
-  width: 45%;
+  border: 3px solid yellow;
+  width: 100%;
 
   h2 {
     margin-bottom: 1rem;
@@ -40,8 +39,6 @@ export const ChartCard = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     width: 100%;
     padding: 0.5rem;
-
-    
   }
 `;
 
@@ -66,14 +63,11 @@ export const BotonFiltro = styled.button`
   border: none;
   cursor: pointer;
   font-weight: 500;
-  
-    
 
   &:hover {
     background-color: #276749;
   }
 `;
-
 
 export const DatePickerWrapper = styled.div`
   .react-datepicker-wrapper {
@@ -86,4 +80,3 @@ export const DatePickerWrapper = styled.div`
     border: 1px solid #ccc;
   }
 `;
-
