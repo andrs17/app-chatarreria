@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import styled from "styled-components";
 import { VentasPetDashboard } from "./pet/VentasPetDashboard";
+import { theme } from "../../styles/theme.js";
 
 const dashboards = [
   { label: "PET", component: <VentasPetDashboard /> },
@@ -27,16 +28,14 @@ export const DashboardSlider = () => {
 
   return (
     <ContentContainer>
-      <Nav>
-        <NavButton onClick={goToPrevious}>
-          <ChevronLeft size={28} />
-        </NavButton>
-        <Title>{dashboards[currentIndex].label}</Title>
-        <NavButton onClick={goToNext}>
-          <ChevronRight size={28} />
-        </NavButton>
-      </Nav>
+      <NavButton onClick={goToPrevious}>
+        <ChevronLeft size={28} />
+      </NavButton>
+      <Title>{dashboards[currentIndex].label}</Title>
       {dashboards[currentIndex].component}
+      <NavButton onClick={goToNext}>
+        <ChevronRight size={28} />
+      </NavButton>
     </ContentContainer>
   );
 };
@@ -44,40 +43,49 @@ export const DashboardSlider = () => {
 // Styled Components
 
 const ContentContainer = styled.div`
-  background-color: ${({ theme }) => (theme.darkMode ? "#111827" : "#ffffff")};
-  border-radius: 1rem;
+  background-color: ${theme.colores.blancoHumo};
+  border-radius: 2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   overflow: hidden;
-  padding: 1rem;
-  border: 2px solid yellow;
+  padding-top: 5rem;
+  padding-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  
+
+  position: relative;
 
   @media (max-width: 768px) {
     padding: 0.5rem;
   }
 `;
 
-const Nav = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-  border: 1px solid;
-`;
-
 const Title = styled.h2`
+  width: min-content;
   font-size: 1.5rem;
   font-weight: 600;
-  background-color: red;
+  margin-bottom: 1rem;
+  position: absolute;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
 `;
 
 const NavButton = styled.button`
   padding: 0.5rem;
   border-radius: 50%;
-  background: transparent;
-  transition: background 0.2s ease-in-out;
+  width: 40px;
+  height: 40px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${theme.colores.azulSuave};
+  color: ${theme.colores.blancoHumo};
+  transition: all 0.3s ease;
   &:hover {
-    background: ${({ theme }) => (theme.darkMode ? "#374151" : "#e5e7eb")};
+    background: ${theme.colores.amarillo};
+    transform: scale(1.1);
   }
 `;
-
-

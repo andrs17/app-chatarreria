@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 
 export const Container = styled.div`
   display: flex;
+  justify-content: center;
+  gap: 10px;
   margin: 0.5rem;
   padding: 4rem 1rem 1rem 1rem;
-  justify-content: space-between;
   position: relative;
-  border: 2px solid rebeccapurple;
+  background-color: ${({ theme }) => theme.colores.blancoHumo};
 `;
 
 export const Title = styled.h1`
@@ -15,7 +16,7 @@ export const Title = styled.h1`
   top: 2rem;
   font-size: 2rem;
 
-  text-align: center;
+  
   color: ${({ theme }) => theme.colores.azulGris};
   border-bottom: 2px solid black;
 
@@ -26,13 +27,14 @@ export const Title = styled.h1`
 
 export const ButtonColumn = styled.div`
   display: flex;
+  justify-content: center;
   flex-direction: column;
+  align-items: center;
   gap: 2rem;
   margin-top: 5rem;
   max-height: max-content;
   border-radius: 15px;
-  padding: 1rem;
-  border: 2px solid ${({ theme }) => theme.colores.verdeReciclaje};
+  padding: 0.5rem;
 `;
 
 export const TitleEmpleados = styled.h6`

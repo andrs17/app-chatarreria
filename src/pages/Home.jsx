@@ -20,9 +20,9 @@ const Home = () => {
           Registrar Ventas
         </NavButton>
       </ButtonColumn>
-      
-        <Dashboard />
-      
+
+      <Dashboard />
+
       <ButtonColumn $position="right">
         <TitleEmpleados>Empleados</TitleEmpleados>
         <NavButton to="/clientes">Pasteros</NavButton>

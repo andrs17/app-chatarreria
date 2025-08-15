@@ -2,18 +2,15 @@
 import styled from "styled-components";
 
 export const DashboardWrapper = styled.div`
-  padding: 1.5rem;
-  width: 100%;
-  border: 3px solid ;
-  background-color: red;
- 
+  padding: 2rem;
+  width: 90%;
+  border-radius: 20px;
+  background-color: ${({theme}) => theme.colores.azulGris};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     padding: 0;
 
-    h1 {
-      font-size: 1.5rem;
-    }
+   
   }
 `;
 
@@ -26,8 +23,7 @@ export const ChartCard = styled.div`
   box-shadow: 3px 3px 5px ${({ theme }) => theme.colores.azulGris};
   padding: 1.5rem;
   margin-bottom: 2rem;
-  border: 3px solid yellow;
-  width: 100%;
+  width: 50%;
 
   h2 {
     margin-bottom: 1rem;
@@ -55,19 +51,7 @@ export const FiltrosFecha = styled.div`
   }
 `;
 
-export const BotonFiltro = styled.button`
-  background-color: #000000;
-  color: white;
-  padding: 0.4rem 1rem;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-weight: 500;
 
-  &:hover {
-    background-color: #276749;
-  }
-`;
 
 export const DatePickerWrapper = styled.div`
   .react-datepicker-wrapper {
