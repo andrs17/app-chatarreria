@@ -2,11 +2,18 @@
 import styled from "styled-components";
 
 export const DashboardWrapper = styled.div`
-  padding: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: auto;
+  justify-items: center;
+  align-items: center;
+  padding: 3rem;
   width: 90%;
   border-radius: 20px;
   background-color: ${({theme}) => theme.colores.azulGris};
+  box-shadow: 3px 3px 5px ${({ theme }) => theme.colores.azulGris};
 
+  border: 1px solid red;
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     padding: 0;
 
@@ -21,9 +28,10 @@ export const ChartCard = styled.div`
   background-color: ${({ theme }) => theme.colores.blancoHumo};
   border-radius: 1rem;
   box-shadow: 3px 3px 5px ${({ theme }) => theme.colores.azulGris};
-  padding: 1.5rem;
+  padding: 1rem;
   margin-bottom: 2rem;
-  width: 50%;
+  width: 100%;
+  height: 100%;
 
   h2 {
     margin-bottom: 1rem;
@@ -38,18 +46,7 @@ export const ChartCard = styled.div`
   }
 `;
 
-export const FiltrosFecha = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  gap: 1rem;
 
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: stretch;
-  }
-`;
 
 
 

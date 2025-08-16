@@ -7,10 +7,10 @@ export const GraficoWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   background-color: ${theme.colores.azulSuave};
-  width: 50%;
+  width: 100%;
   padding: 0.8rem;
   border-radius: 16px;
-  box-shadow: 3px 3px 5px ${({ theme }) => theme.colores.azulGris};
+  box-shadow: 3px 3px 5px ${({ theme }) => theme.colores.blancoHumo};
   margin-top: 2rem;
 `;
 
