@@ -1,5 +1,5 @@
 
-import { theme } from "../../../styles/theme.js";
+import { theme } from "@/styles/theme.js";
 import {
   BarChart,
   Bar,

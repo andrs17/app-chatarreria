@@ -15,12 +15,14 @@ export const useVentasPetData = (rango) => {
         const inicio = rango.startDate.toISOString().split("T")[0];
         const fin = rango.endDate.toISOString().split("T")[0];
         data = await obtenerResumenVentasPet(inicio, fin);
+        console.log(inicio, fin)
       } else {
         data = await obtenerResumenVentasPet(); // sin fechas
+        
       }
 
       setVentas(data);
-      setLoading(false);
+      setLoading(false);    
     };
 
     fetchVentas();

@@ -28,6 +28,7 @@ export const DashboardSlider = () => {
 
   return (
     <ContentContainer>
+      <TitleDashboard>Dashboard de Ventas</TitleDashboard>
       <NavButton onClick={goToPrevious}>
         <ChevronLeft size={28} />
       </NavButton>
@@ -59,6 +60,15 @@ const ContentContainer = styled.div`
   @media (max-width: 768px) {
     padding: 0.5rem;
   }
+`;
+
+const TitleDashboard = styled.h1`
+  padding: 17px;
+  border-radius: 10px;
+  width: fit-content;
+  margin-left: 40px;
+  color: ${theme.colores.azulGris};
+  box-shadow: 3px 3px 5px ${({ theme }) => theme.colores.azulGris};
 `;
 
 const Title = styled.h2`

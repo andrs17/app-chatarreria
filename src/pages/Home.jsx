@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ModalVentas from "../components/vistaModalVentas/ModalVentas";
-import { Dashboard } from "./Dashboard";
+import { DashboardSlider } from "@/components/dashboards/DashboardSlider";
 import { FaShoppingCart } from "react-icons/fa";
 import {
   Container,
@@ -21,7 +21,7 @@ const Home = () => {
         </NavButton>
       </ButtonColumn>
 
-      <Dashboard />
+      <DashboardSlider />
 
       <ButtonColumn $position="right">
         <TitleEmpleados>Empleados</TitleEmpleados>

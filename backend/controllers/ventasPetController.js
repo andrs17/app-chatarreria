@@ -41,7 +41,8 @@ export const obtenerVentasPET = async (req, res) => {
   try {
     const [rows] = await db.execute(`
       SELECT v.id, v.fecha_venta, c.nombre AS cliente, e.nombre AS empleado,
-             t.nombre AS tipo, v.cantidad_kg, v.precio_unitario
+             t.nombre AS tipo, v.cantidad_kg, v.precio_unitario,
+             (v.cantidad_kg * v.precio_unitario) AS total
       FROM ventas_pet v
       JOIN clientes c ON v.cliente_id = c.id
       JOIN empleados e ON v.empleado_id = e.id
@@ -58,9 +59,12 @@ export const obtenerVentasPET = async (req, res) => {
 
 export const obtenerResumenVentasPET = async (req, res) => {
   const { inicio, fin } = req.query;
-
+  
   let query = `
-    SELECT tp.nombre AS tipo_pet, SUM(vp.cantidad_kg) AS total_kg
+    SELECT tp.nombre AS tipo_pet, SUM(vp.cantidad_kg) AS total_kg,
+          CAST(SUM(vp.cantidad_kg * vp.precio_unitario) AS DECIMAL(10, 2)) AS total,
+          MIN(vp.fecha_venta) AS fecha_primer_venta,
+          MAX(vp.fecha_venta) AS fecha_ultima_venta
     FROM ventas_pet vp
     JOIN tipos_pet tp ON vp.tipo_pet_id = tp.id
   `;

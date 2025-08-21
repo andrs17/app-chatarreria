@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { theme } from "../../styles/theme.js";
+import { theme } from "@/styles/theme.js";
+import { formatoMoneda } from "@/utils/formatoMoneda.js";
 
 export const TooltipBox = styled.div`
   background-color: ${theme.colores.blancoHumo};
@@ -10,14 +11,7 @@ export const TooltipBox = styled.div`
   box-shadow: 0 2px 6px ${theme.colores.azulGris};;
 `;
 
-const formatoMoneda = (valor) =>
-  new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-    currencyDisplay: "symbol",
-  }).format(valor);
+
 
 export const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length > 0) {
@@ -38,8 +32,8 @@ export const CustomTooltip = ({ active, payload, label }) => {
         </p>
 
         <p>Cantidad: {total_kg} kg</p>
-        <p>Precio/kg: ${formatoMoneda(precio_unitario)}</p>
-        <p>Total: ${formatoMoneda(total)}</p>
+        <p>Precio/kg: {formatoMoneda(precio_unitario)}</p>
+        <p>Total: {formatoMoneda(total)}</p>
       </TooltipBox>
     );
   }

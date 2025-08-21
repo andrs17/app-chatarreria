@@ -42,6 +42,7 @@ export const GraficoVentasPetPorFecha = () => {
       const data = await obtenerVentasPetPorFecha(formattedStart, formattedEnd);
 
       setVentas(data);
+      console.log(JSON.stringify(data))
 
       const filtrarUltimos7Dias = (ventas) => {
         const fechasUnicas = [...new Set(ventas.map((v) => v.fecha_venta))];
