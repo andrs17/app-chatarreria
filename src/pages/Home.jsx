@@ -7,7 +7,6 @@ import {
   Title,
   ButtonColumn,
   NavButton,
-  TitleEmpleados,
 } from "./stylesHome";
 
 const Home = () => {
@@ -19,17 +18,14 @@ const Home = () => {
         <NavButton as="button" onClick={() => setMostrarModal(true)}>
           Registrar Ventas
         </NavButton>
+        <NavButton as="button" >
+          Empleados
+        </NavButton>
       </ButtonColumn>
 
       <DashboardSlider />
 
-      <ButtonColumn $position="right">
-        <TitleEmpleados>Empleados</TitleEmpleados>
-        <NavButton to="/clientes">Pasteros</NavButton>
-        <NavButton to="/clientes">Plastiqueros</NavButton>
-        <NavButton to="/clientes">Compradores</NavButton>
-        {/* Agrega más botones aquí */}
-      </ButtonColumn>
+      
       {/* 🧩 Modal de ventas */}
       {mostrarModal && <ModalVentas onClose={() => setMostrarModal(false)} />}
       {/* 🧩 Dashboard de ventas */}

@@ -3,21 +3,28 @@ import styled from "styled-components";
 
 export const DashboardWrapper = styled.div`
   display: grid;
+  box-sizing: border-box;
   grid-template-columns: 1fr 1fr;
   grid-auto-rows: auto;
   justify-items: center;
   align-items: center;
+  margin-top: 2.5rem;
   padding: 3rem;
   width: 90%;
   border-radius: 20px;
-  background-color: ${({theme}) => theme.colores.azulGris};
+  background-color: ${({ theme }) => theme.colores.azulGris};
   box-shadow: 3px 3px 5px ${({ theme }) => theme.colores.azulGris};
 
-  border: 1px solid red;
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    
+  }
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    padding: 0;
-
-   
+    margin-top: 5rem;
+    grid-template-columns: 1fr;
+    max-width: 100%;
+    justify-items: center;
+    align-content: center;
+    padding: 1.5rem 0.5rem;
   }
 `;
 
@@ -42,22 +49,7 @@ export const ChartCard = styled.div`
   }
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     width: 100%;
-    padding: 0.5rem;
+    padding: 0;
   }
 `;
 
-
-
-
-
-export const DatePickerWrapper = styled.div`
-  .react-datepicker-wrapper {
-    width: auto;
-  }
-
-  input {
-    padding: 0.4rem 0.7rem;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-  }
-`;

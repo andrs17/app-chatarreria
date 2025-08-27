@@ -44,11 +44,14 @@ const TableWrapper = styled.div`
   padding: 20px;
   margin-left: 4rem;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+
   width: 60%;
   background-color: ${({ theme }) => theme.colores.blancoHumo};
   border-radius: 30px;
   border: 3px solid ${({ theme }) => theme.colores.verdeReciclaje};
   box-shadow: 3px 3px 5px ${({ theme }) => theme.colores.blancoHumo};
+  
   table {
     width: 100%;
     border-collapse: collapse;
@@ -87,5 +90,17 @@ const TableWrapper = styled.div`
     background-color: ${({ theme }) => theme.colores.azulSuave};
     color: ${({ theme }) => theme.colores.blancoHumo};
     transition: 0.2s ease-in-out;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    padding: 10px;
+    font-size: 0.8rem;
+
+    table {
+      font-size: 0.8rem;
+    }
   }
 `;

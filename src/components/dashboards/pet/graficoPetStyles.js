@@ -24,22 +24,22 @@ export const Titulo = styled.h2`
 export const NoDataText = styled.p`
   text-align: center;
   color: ${theme.colores.azulGris};
-  font-size: 1rem;
+  font-size: 12rem;
 `;
 
 export const CalendarWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
   position: relative;
-  left: 4rem;
+  left: 4.3rem;
   width: 8rem;
   font-size: 0.8rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.4rem;
   text-align: center;
+  
 
   .contenedor-fecha {
-    position: relative;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -53,21 +53,36 @@ export const CalendarWrapper = styled.div`
   }
 
   .custom-date-input {
+    
     padding: 8px 8px;
     border-radius: 12px;
     border: none;
     font-size: 0.6rem;
-    width: 7rem;
+    width: 100%;
     height: 2.5rem;
     font-weight: 700;
     text-align: end;
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 3px 3px 5px ${({ theme }) => theme.colores.azulGris};
+
     &:hover {
       box-shadow: 3px 3px 5px ${({ theme }) => theme.colores.azulGris};
       transform: scale(1.05);
     }
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+      display: flex;
+      left: 0;
+      margin: 0;
+      padding: 0;
+      border: 1px solid blue;
+  }
+    
+  }
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    width: 5rem;
+    left: 4.5rem;
+    margin: 0;
   }
 `;
 
