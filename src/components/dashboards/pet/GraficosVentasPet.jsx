@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
-import { theme } from "../../../styles/theme.js";
-import { obtenerResumenVentasPet } from "../../../services/ventasPetService.js";
+
+import { theme } from "@/styles/theme.js";
 import {
   BarChart,
   Bar,
@@ -10,19 +9,9 @@ import {
   Cell,
 } from "recharts";
 import { ChartCard } from "./dashboardStyles.js";
+import { RangoFechasPet } from "./RangoFechasPet.jsx";
 
-export const VentasPetChart = () => {
-  const [ventas, setVentas] = useState([]);
-
-  useEffect(() => {
-    const fetchVentas = async () => {
-      const data = await obtenerResumenVentasPet();
-      
-      setVentas(data);
-    };
-
-    fetchVentas();
-  }, []);
+export const VentasPetChart = ({ventas, rango, setRango}) => {
 
   const normalize = (str) =>
     str
@@ -48,6 +37,7 @@ export const VentasPetChart = () => {
   return (
     <ChartCard>
       <h2>Total por tipo de PET</h2>
+      <RangoFechasPet onChange={setRango} value={rango} />
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={ventas}>
           <XAxis
@@ -59,7 +49,7 @@ export const VentasPetChart = () => {
             dx={-40}
             dy={20}
           />
-          <Bar dataKey="total_kg" barSize={40} radius={[10, 10, 0, 0]}>
+          <Bar dataKey="total_kg" barSize={35} radius={[10, 10, 0, 0]}>
             {ventas.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={getColor(entry.tipo_pet)} />
             ))}

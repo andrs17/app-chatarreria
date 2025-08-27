@@ -3,17 +3,33 @@ import { Link } from "react-router-dom";
 
 export const Container = styled.div`
   display: flex;
+  justify-content: space-around;
+  gap: 30px;
+  padding: 4rem 1rem 1rem 1rem;
+  position: relative;
+  background-color: ${({ theme }) => theme.colores.blancoHumo};
+  
 
-  flex-direction: column;
-  align-items: center;
-  padding: 1.5rem;
-  height: 100vh;
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    gap: 0;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    align-items: center;
+    border: 2px solid red;
+    padding-bottom: 1rem;
+  }
 `;
 
 export const Title = styled.h1`
-  font-size: 2.2rem;
-  margin-bottom: 2rem;
-  text-align: center;
+  position: absolute;
+  top: 2rem;
+  font-size: 2rem;
+
   color: ${({ theme }) => theme.colores.azulGris};
   border-bottom: 2px solid black;
 
@@ -22,54 +38,36 @@ export const Title = styled.h1`
   }
 `;
 
-export const MainLayout = styled.div`
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  margin-top: 2rem;
-  padding: 2rem;
-  gap: 6rem;
-  width: 100%;
-  height: 100%;
-  max-width: 1200px;
-  max-height: max-content;
-  border-radius: 7px;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    gap: 1.5rem;
-  }
-`;
-
 export const ButtonColumn = styled.div`
   display: flex;
+  justify-content: center;
   flex-direction: column;
-  gap: 2rem;
-  margin-top: 5px;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 5rem;
   max-height: max-content;
+  width: 15%;
   border-radius: 15px;
-  padding: 1.3rem;
-  border: 2px solid ${({ theme }) => theme.colores.verdeReciclaje};
-`;
+  padding: 0.5rem;
+  border:2px solid ;
 
-export const TitleEmpleados = styled.h6`
-  font-size: 1.3rem;
-  text-align: center;
-  color: ${({ theme }) => theme.colores.azulGris};
-  
-  border-radius: 12px;
-  border: none;
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    margin-top: 6rem;
+  }
+
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    padding: 0.4rem 0.7rem;
+    width: max-content;
   }
 `;
 
 export const NavButton = styled(Link).attrs((props) => ({
   as: props.as || Link,
 }))`
-  background-color: ${({ theme }) => theme.colores.azulSuave};
-  color: ${({ theme }) => theme.colores.blancoHumo};
-  padding: 0.1rem;
-  width: 8rem;
+  background-color: ${({ theme }) => theme.colores.blancoHumo};
+  color: ${({ theme }) => theme.colores.azulGris};
+  box-shadow: 0 4px 6px ${({ theme }) => theme.colores.azulGris};
+  padding: 1.8rem;
+  width: 100%;
   font-weight: bold;
   border-radius: 9px;
   text-decoration: none;
@@ -77,60 +75,26 @@ export const NavButton = styled(Link).attrs((props) => ({
   justify-content: center;
   align-items: center;
   border: none;
-  font-size: 0.8rem;
-  height: 40px;
-  transition: all 0.3s ease;
+  font-size: 0.7rem;
+  height: 3px;
+  transition: all 0.15s ease;
 
   &:hover {
-    box-shadow: 3px 3px 5px ${({ theme }) => theme.colores.azulGris};
-    transform: scale(1);
-    background-color: ${({ theme }) => theme.colores.amarillo};
+    box-shadow: 0 2px 4px ${({ theme }) => theme.colores.azulGris};
+    transform: translateY(2px);
     color: ${({ theme }) => theme.colores.azulGris};
+  }
+
+  &:active {
+    transform: translateY(4px);
+    box-shadow: 0 1px 2px ${({ theme }) => theme.colores.azulGris};
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     font-size: 0.5rem;
   }
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    width: 3.7rem;
-    height: 25px;
-  }
-`;
-
-export const ImageSection = styled.div`
-  width: 100%;
-  aspect-ratio: 16/10;
-  overflow: hidden;
-  margin-bottom: 2rem;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  background-color: ${({ theme }) => theme.colores.azulSuave};
-  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
-  img {
-    width: 100%;
-    object-fit: cover;
-    border-radius: 12px;
-
-    animation: zoom 8s ease-in-out infinite alternate;
-  }
-
-  @keyframes zoom {
-    from {
-      transform: scale(1);
-    }
-    to {
-      transform: scale(1.3);
-    }
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    width: 100%;
-    aspect-ratio: 5/3;
-  }
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    height: 150px;
+    width: 3.5rem;
+    
   }
 `;

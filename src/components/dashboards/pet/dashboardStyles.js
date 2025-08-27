@@ -2,9 +2,30 @@
 import styled from "styled-components";
 
 export const DashboardWrapper = styled.div`
-  padding: 2rem;
-  width: 100%;
-  border: 2px solid;
+  display: grid;
+  box-sizing: border-box;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: auto;
+  justify-items: center;
+  align-items: center;
+  margin-top: 2.5rem;
+  padding: 3rem;
+  width: 90%;
+  border-radius: 20px;
+  background-color: ${({ theme }) => theme.colores.azulGris};
+  box-shadow: 3px 3px 5px ${({ theme }) => theme.colores.azulGris};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    
+  }
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    margin-top: 5rem;
+    grid-template-columns: 1fr;
+    max-width: 100%;
+    justify-items: center;
+    align-content: center;
+    padding: 1.5rem 0.5rem;
+  }
 `;
 
 export const ChartCard = styled.div`
@@ -14,9 +35,10 @@ export const ChartCard = styled.div`
   background-color: ${({ theme }) => theme.colores.blancoHumo};
   border-radius: 1rem;
   box-shadow: 3px 3px 5px ${({ theme }) => theme.colores.azulGris};
-  padding: 1.5rem;
+  padding: 1rem;
   margin-bottom: 2rem;
-  width: 45%;
+  width: 100%;
+  height: 100%;
 
   h2 {
     margin-bottom: 1rem;
@@ -25,48 +47,9 @@ export const ChartCard = styled.div`
     font-size: 1rem;
     width: 70%;
   }
-`;
-
-export const FiltrosFecha = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  gap: 1rem;
-  border: 1px solid red;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: stretch;
-  }
-`;
-
-export const BotonFiltro = styled.button`
-  background-color: #2f855a;
-  color: white;
-  padding: 0.4rem 1rem;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-weight: 500;
-  
-    
-
-  &:hover {
-    background-color: #276749;
-  }
-`;
-
-
-export const DatePickerWrapper = styled.div`
-  .react-datepicker-wrapper {
-    width: auto;
-  }
-
-  input {
-    padding: 0.4rem 0.7rem;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    width: 100%;
+    padding: 0;
   }
 `;
 
