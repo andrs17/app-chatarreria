@@ -28,7 +28,7 @@ export const DashboardSlider = () => {
 
   return (
     <ContentContainer>
-      <TitleDashboard>Dashboard de Ventas</TitleDashboard>
+      <TitleDashboard>Dashboard</TitleDashboard>
       <NavButton onClick={goToPrevious}>
         <ChevronLeft size={28} />
       </NavButton>
@@ -58,8 +58,12 @@ const ContentContainer = styled.div`
   margin: 4rem 1.5rem 1.5rem 0;
   position: relative;
 
+  @media (max-width: ${({theme}) => theme.breakpoints.laptop}){
+    padding: 5rem 0.7rem 2rem 0.7rem;
+  }
+
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    flex-direction: column;
+    
     padding-bottom: 4rem;
     margin: 2rem 0 1rem 0;
   }
@@ -75,19 +79,28 @@ const TitleDashboard = styled.h1`
   border-radius: 10px;
   width: fit-content;
   position: absolute;
+  text-align: center;
   font-size: 1.8rem;
   left: 2.5rem;
   top: 20px;
   color: ${theme.colores.azulGris};
   box-shadow: 0 1px 2px ${({ theme }) => theme.colores.azulGris};
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     font-size: 1.2rem;
+    padding: 10px;
+    
+    left: 10%;
+    width: 30%;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    left: 5%;
+    font-size: 1rem;
   }
 `;
 
 const TitleMaterial = styled.h2`
-  box-shadow: 0 1px 2px ${({ theme }) => theme.colores.azulGris};
   width: min-content;
   padding: 0.5rem 1rem;
   border-radius: 10px;
@@ -95,9 +108,16 @@ const TitleMaterial = styled.h2`
   font-weight: 600;
   margin-bottom: 1rem;
   position: absolute;
+  color: ${theme.colores.blancoHumo};
   top: 25px;
   left: 50%;
   transform: translateX(-50%);
+  background-color: ${theme.colores.azulGris};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.laptop}) {
+    font-size: 1.5rem;
+    top: 100px;
+  }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     font-size: 1.2rem;
@@ -143,9 +163,6 @@ const NavButton = styled.button`
     width: 40px;
     height: 40px;
     padding: 0.2rem;
-    svg {
-      width: 20px;
-      height: 20px;
-    }
+    
   }
 `;

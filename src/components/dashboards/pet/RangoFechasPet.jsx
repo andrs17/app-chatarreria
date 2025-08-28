@@ -1,10 +1,10 @@
-import { useState } from "react";
+import {  useState } from "react";
+import styled from "styled-components";
 import DatePicker from "react-datepicker";
-import { CalendarWrapper } from "./graficoPetStyles.js";
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale } from "react-datepicker";
 import es from "date-fns/locale/es";
-import { IconoCalendario } from "./graficoPetStyles.js";
+import { BsCalendar2Date } from "react-icons/bs";
 import { CustomDateInput } from "../../shared/CustonDateInput.jsx";
 registerLocale("es", es);
 
@@ -14,6 +14,9 @@ export const RangoFechasPet = ({ onChange }) => {
 
   const [hoveringInput, setHoveringInput] = useState(false);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+
+
+  
 
   const manejarCambio = (fechas) => {
     setRangoFechas(fechas);
@@ -35,7 +38,7 @@ export const RangoFechasPet = ({ onChange }) => {
           endDate={fechaFin}
           onChange={manejarCambio}
           dateFormat="dd/MM/yyyy"
-          placeholderText="Filtrar ventas"
+          placeholderText="Filtrar"
           isClearable
           showMonthDropdown
           showYearDropdown
@@ -43,10 +46,51 @@ export const RangoFechasPet = ({ onChange }) => {
           onCalendarOpen={() => setIsCalendarOpen(true)}
           onCalendarClose={() => setIsCalendarOpen(false)}
           customInput={<CustomDateInput />}
-          
         />
         <IconoCalendario $hover={hoveringInput} $isOpen={isCalendarOpen} />
       </div>
     </CalendarWrapper>
   );
 };
+
+const CalendarWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  left: 30%;
+  width: 8rem;
+  font-size: 0.8rem;
+  margin-bottom: 1.4rem;
+  text-align: center;
+
+  .contenedor-fecha {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .react-datepicker-wrapper {
+    width: 100%;
+    position: relative;
+    margin-top: 10px;
+  }
+`;
+
+const IconoCalendario = styled(BsCalendar2Date)`
+  position: absolute;
+  margin: 0.8rem 3rem 0 0;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  color: ${({ $isOpen }) => ($isOpen ? "#ffcc00" : "#7a8fa6")};
+  transform: ${({ $hover }) => ($hover ? "scale(1.1)" : "scale(1)")};
+  filter: ${({ $isOpen }) =>
+    $isOpen ? "drop-shadow(0 0 5px #ffcc00)" : "none"};
+
+  
+
+  
+`;

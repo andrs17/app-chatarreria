@@ -10,10 +10,14 @@ import {
 } from "recharts";
 import { format, parseISO, startOfYear } from "date-fns";
 import { es } from "date-fns/locale";
-import { obtenerVentasPetPorFecha } from "../../../services/ventasPetService.js";
+import { obtenerVentasPetPorFecha } from "@/services/ventasPetService.js";
 import { RangoFechasPet } from "./RangoFechasPet.jsx";
-import { GraficoWrapper, Titulo, NoDataText } from "./graficoPetStyles.js";
-import { theme } from "../../../styles/theme.js";
+import {
+  GraficoWrapper,
+  Titulo,
+  NoDataText,
+} from "./stylesGraficoVentaPetPorFecha.js";
+import { theme } from "@/styles/theme.js";
 import { CustomTooltip } from "../../shared/CustonTooltip.jsx";
 
 export const GraficoVentasPetPorFecha = () => {

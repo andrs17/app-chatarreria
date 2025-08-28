@@ -1,4 +1,4 @@
-
+import styled from "styled-components";
 import { theme } from "@/styles/theme.js";
 import {
   BarChart,
@@ -8,11 +8,9 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
-import { ChartCard } from "./dashboardStyles.js";
 import { RangoFechasPet } from "./RangoFechasPet.jsx";
 
-export const VentasPetChart = ({ventas, rango, setRango}) => {
-
+export const VentasPetChart = ({ ventas, rango, setRango }) => {
   const normalize = (str) =>
     str
       ?.trim()
@@ -64,3 +62,28 @@ export const VentasPetChart = ({ventas, rango, setRango}) => {
     </ChartCard>
   );
 };
+
+const ChartCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: ${({ theme }) => theme.colores.blancoHumo};
+  border-radius: 1rem;
+  box-shadow: 3px 3px 5px ${({ theme }) => theme.colores.azulGris};
+  padding: 1rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  height: 100%;
+
+  h2 {
+    margin-bottom: 1rem;
+    color: ${({ theme }) => theme.colores.azulGris};
+    text-align: center;
+    font-size: 1rem;
+    width: 70%;
+  }
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    width: 100%;
+    padding: 0;
+  }
+`;

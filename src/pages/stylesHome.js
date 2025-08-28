@@ -20,7 +20,6 @@ export const Container = styled.div`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     align-items: center;
-    border: 2px solid red;
     padding-bottom: 1rem;
   }
 `;
@@ -49,7 +48,6 @@ export const ButtonColumn = styled.div`
   width: 15%;
   border-radius: 15px;
   padding: 0.5rem;
-  border:2px solid ;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     margin-top: 6rem;

@@ -9,9 +9,8 @@ export const TableGraficoBarrasPet = ({ ventas, rango }) => {
   return (
     <TableWrapper>
       <h3>
-          {formatoFecha(rangoFinal.startDate)} al{" "}
-          {formatoFecha(rangoFinal.endDate)}
-        
+        {formatoFecha(rangoFinal.startDate)} al{" "}
+        {formatoFecha(rangoFinal.endDate)}
       </h3>
       <table>
         <thead>
@@ -46,12 +45,11 @@ const TableWrapper = styled.div`
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 
-  width: 60%;
+  width: 100%;
   background-color: ${({ theme }) => theme.colores.blancoHumo};
   border-radius: 30px;
   border: 3px solid ${({ theme }) => theme.colores.verdeReciclaje};
-  box-shadow: 3px 3px 5px ${({ theme }) => theme.colores.blancoHumo};
-  
+
   table {
     width: 100%;
     border-collapse: collapse;
@@ -63,7 +61,6 @@ const TableWrapper = styled.div`
     color: ${({ theme }) => theme.colores.verdeReciclaje};
     text-align: center;
     margin-bottom: 1rem;
-
   }
   th {
     padding: 0.75rem;
@@ -92,12 +89,35 @@ const TableWrapper = styled.div`
     transition: 0.2s ease-in-out;
   }
 
+  @media (max-width: ${({ theme }) => theme.breakpoints.laptop}) {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    padding: 10px;
+
+    h3 {
+      width: 45%;
+    }
+
+    table {
+    }
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.laptop}) {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+  }
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     width: 100%;
     max-width: 100%;
     margin-left: 0;
     padding: 10px;
     font-size: 0.8rem;
+
+    h3 {
+      width: 70%;
+    }
 
     table {
       font-size: 0.8rem;
