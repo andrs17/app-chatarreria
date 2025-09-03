@@ -1,10 +1,18 @@
-import express from "express";
-import { registrarVentaPasta } from "../controllers/ventasPastaController.js";
+import express from 'express';
+import { 
+  registrarVenta, 
+  obtenerVentas,
+  obtenerResumenVentas,
+  obtenerVentasPorFecha
+} from '../controllers/ventasController.js';
 
 const router = express.Router();
+const material = "pasta"; // <- dinámico
 
-router.post("/", registrarVentaPasta);
-
-// router.get('/', obtenerVentasPasta); // opcional si quieres listar
+router.get('/', obtenerVentas(material));
+router.get('/resumen', obtenerResumenVentas(material));
+router.get('/por-fechas', obtenerVentasPorFecha(material));
+router.post('/', registrarVenta(material));
 
 export default router;
+

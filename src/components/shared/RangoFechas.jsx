@@ -1,22 +1,19 @@
-import {  useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale } from "react-datepicker";
 import es from "date-fns/locale/es";
 import { BsCalendar2Date } from "react-icons/bs";
-import { CustomDateInput } from "../../shared/CustonDateInput.jsx";
+import { CustomDateInput } from "./CustonDateInput";
 registerLocale("es", es);
 
-export const RangoFechasPet = ({ onChange }) => {
+export const RangoFechas = ({ onChange }) => {
   const [rangoFechas, setRangoFechas] = useState([null, null]);
   const [fechaInicio, fechaFin] = rangoFechas;
 
   const [hoveringInput, setHoveringInput] = useState(false);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-
-
-  
 
   const manejarCambio = (fechas) => {
     setRangoFechas(fechas);
@@ -89,8 +86,4 @@ const IconoCalendario = styled(BsCalendar2Date)`
   transform: ${({ $hover }) => ($hover ? "scale(1.1)" : "scale(1)")};
   filter: ${({ $isOpen }) =>
     $isOpen ? "drop-shadow(0 0 5px #ffcc00)" : "none"};
-
-  
-
-  
 `;

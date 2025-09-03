@@ -34,7 +34,7 @@ export const VentasPetChart = ({ ventas, rango, setRango }) => {
 
   return (
     <ChartCard>
-      <h2>Total </h2>
+      <h2>Total por tipo de PET</h2>
       <RangoFechasPet onChange={setRango} value={rango} />
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={ventas}>
@@ -74,6 +74,8 @@ const ChartCard = styled.div`
   margin-bottom: 2rem;
   width: 100%;
   height: 100%;
+
+  border: 2px solid red;
 
   h2 {
     margin-bottom: 1rem;

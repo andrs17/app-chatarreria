@@ -2,13 +2,13 @@
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import styled from "styled-components";
-import { VentasPetDashboard } from "./pet/VentasPetDashboard";
+import {VentasDashboard} from "../shared/VentasDashboard.jsx";
+import { RangoFechas } from "../shared/RangoFechas.jsx";
 import { theme } from "../../styles/theme.js";
 
 const dashboards = [
-  { label: "PET", component: <VentasPetDashboard /> },
-  // { label: "Cartón", component: <DashboardCarton /> },
-  // { label: "Vidrio", component: <DashboardVidrio /> },
+  { label: "PET", component: <VentasDashboard material="pet" RangoFechasComponent={RangoFechas} /> },
+  { label: "PASTA", component: <VentasDashboard material="pasta" RangoFechasComponent={RangoFechas} /> },
 ];
 
 export const DashboardSlider = () => {

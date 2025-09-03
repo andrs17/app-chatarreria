@@ -44,6 +44,8 @@ const DashboardWrapper = styled.div`
   background-color: ${({ theme }) => theme.colores.azulGris};
   box-shadow: 3px 3px 5px ${({ theme }) => theme.colores.azulGris};
 
+  border: 3px solid red;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.laptop}) {
     margin-top: 5rem;
     grid-template-columns: 1fr;

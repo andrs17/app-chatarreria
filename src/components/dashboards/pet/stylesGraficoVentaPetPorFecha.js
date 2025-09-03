@@ -19,7 +19,7 @@ export const Titulo = styled.h2`
   text-align: center;
 `;
 
-export const NoDataText = styled.p`
+export const NoDataText = styled.p` 
   text-align: center;
   color: ${theme.colores.azulGris};
   font-size: 12rem;

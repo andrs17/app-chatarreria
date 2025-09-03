@@ -1,41 +1,59 @@
+// src/components/tables/VentasTable.jsx
 import styled from "styled-components";
 import { formatoMoneda } from "@/utils/formatoMoneda.js";
 import { formatoFecha, obtenerRangoPorDefecto } from "@/utils/formatoFecha.js";
-import { theme } from "@/styles/theme";
 
-export const TableGraficoBarrasPet = ({ ventas, rango }) => {
+export const TableVentas = ({ ventas = [], rango, headers = [], dataKeyTipo }) => {
   const rangoFinal =
-    rango.startDate && rango.endDate ? rango : obtenerRangoPorDefecto(ventas);
+    rango?.startDate && rango?.endDate ? rango : obtenerRangoPorDefecto(ventas);
+
+  console.log(ventas);
+  console.log(obtenerRangoPorDefecto);
   return (
     <TableWrapper>
       <h3>
-        {formatoFecha(rangoFinal.startDate)} al{" "}
-        {formatoFecha(rangoFinal.endDate)}
+        {formatoFecha(rangoFinal?.startDate)} al{" "}
+        {formatoFecha(rangoFinal?.endDate)}
       </h3>
       <table>
         <thead>
           <tr>
-            <th>Tipo de PET</th>
-            <th>Cantidad (kg)</th>
-            <th>Total</th>
+            {headers.length > 0 ? (
+              headers.map((header, index) => (
+                <th key={index}>{header}</th>
+              ))
+            ) : (
+              <>
+                <th>Tipo</th>
+                <th>Cantidad (kg)</th>
+                <th>Total</th>
+              </>
+            )}
           </tr>
         </thead>
         <tbody>
-          {ventas.map((venta, index) => {
-            return (
+          {ventas.length > 0  ? (
+            ventas.map((venta, index) => (
               <tr key={index}>
-                <td>{venta.tipo_pet}</td>
+                <td>{venta[dataKeyTipo]}</td>
                 <td>{formatoMoneda(venta.total_kg)}</td>
                 <td>{formatoMoneda(venta.total)}</td>
               </tr>
-            );
-          })}
+            ))
+          ) : (
+            <tr>
+              <td colSpan={3}>No hay datos disponibles</td>
+            </tr>
+          )}
         </tbody>
       </table>
     </TableWrapper>
   );
 };
 
+
+
+// Se reutiliza el mismo estilo
 const TableWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -44,7 +62,6 @@ const TableWrapper = styled.div`
   margin-left: 4rem;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-
   width: 85%;
   background-color: ${({ theme }) => theme.colores.blancoHumo};
   border-radius: 30px;
@@ -56,18 +73,21 @@ const TableWrapper = styled.div`
     font-size: 0.95rem;
     color: ${({ theme }) => theme.colores.azulGris};
   }
+
   h3 {
     width: 90%;
     color: ${({ theme }) => theme.colores.verdeReciclaje};
     text-align: center;
     margin-bottom: 1rem;
   }
+
   th {
     padding: 0.75rem;
     text-align: left;
     color: ${({ theme }) => theme.colores.blancoHumo};
     border: 2px solid ${({ theme }) => theme.colores.azulGris};
   }
+
   td {
     padding: 0.75rem;
     text-align: left;
@@ -87,40 +107,5 @@ const TableWrapper = styled.div`
     background-color: ${({ theme }) => theme.colores.azulSuave};
     color: ${({ theme }) => theme.colores.blancoHumo};
     transition: 0.2s ease-in-out;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.laptop}) {
-    width: 100%;
-    max-width: 100%;
-    margin-left: 0;
-    padding: 10px;
-
-    h3 {
-      width: 45%;
-    }
-
-    table {
-    }
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.laptop}) {
-    width: 100%;
-    max-width: 100%;
-    margin-left: 0;
-  }
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    width: 100%;
-    max-width: 100%;
-    margin-left: 0;
-    padding: 10px;
-    font-size: 0.8rem;
-
-    h3 {
-      width: 70%;
-    }
-
-    table {
-      font-size: 0.8rem;
-    }
   }
 `;

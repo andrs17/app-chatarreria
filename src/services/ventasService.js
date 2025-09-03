@@ -10,3 +10,10 @@ export const registrarVenta = async (tipoVenta, datosVenta) =>{
   });
   return response.data;
 };
+
+export const obtenerVentasPorFecha = async (material, inicio, fin) => {
+  const url = `${BASE_URL}/ventas-${material}/por-fechas`;
+
+  const {data} = await axios.get(url, {params: {inicio, fin}});
+  return data;
+};

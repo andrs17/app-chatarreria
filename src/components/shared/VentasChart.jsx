@@ -1,3 +1,4 @@
+// src/components/dashboards/shared/VentasChart.jsx
 import styled from "styled-components";
 import { theme } from "@/styles/theme.js";
 import {
@@ -8,38 +9,31 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
-import { RangoFechasPet } from "./RangoFechasPet.jsx";
 
-export const VentasPetChart = ({ ventas, rango, setRango }) => {
+export const VentasChart = ({ material, ventas, rango, setRango, RangoFechasComponent }) => {
   const normalize = (str) =>
-    str
-      ?.trim()
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/[\s_]/g, "");
+    str?.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[\s_]/g, "");
 
   const coloresMap = {
     pettransparente: theme.colores.azulSuave,
     petcolor: theme.colores.verdeReciclaje,
     petmalta: theme.colores.azulGris,
     petaceite: theme.colores.amarillo,
+    // Se pueden agregar colores para pasta u otros materiales
   };
 
-  const getColor = (tipo) => {
-    const key = normalize(tipo);
+  const getColor = (tipo) => coloresMap[normalize(tipo)] || theme.colores.amarillo;
 
-    return coloresMap[key] || theme.colores.amarillo;
-  };
+  const dataKeyTipo = `tipo_${material}`;
 
   return (
     <ChartCard>
-      <h2>Total </h2>
-      <RangoFechasPet onChange={setRango} value={rango} />
+      <h2>Total por tipo de {material.toUpperCase()}</h2>
+      {RangoFechasComponent && <RangoFechasComponent onChange={setRango} value={rango} />}
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={ventas}>
           <XAxis
-            dataKey="tipo_pet"
+            dataKey={dataKeyTipo}
             angle={-20}
             textAnchor="start"
             interval={0}
@@ -49,7 +43,7 @@ export const VentasPetChart = ({ ventas, rango, setRango }) => {
           />
           <Bar dataKey="total_kg" barSize={35} radius={[10, 10, 0, 0]}>
             {ventas.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={getColor(entry.tipo_pet)} />
+              <Cell key={`cell-${index}`} fill={getColor(entry[dataKeyTipo])} />
             ))}
             <LabelList
               dataKey="total_kg"
@@ -74,16 +68,5 @@ const ChartCard = styled.div`
   margin-bottom: 2rem;
   width: 100%;
   height: 100%;
-
-  h2 {
-    margin-bottom: 1rem;
-    color: ${({ theme }) => theme.colores.azulGris};
-    text-align: center;
-    font-size: 1rem;
-    width: 70%;
-  }
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    width: 100%;
-    padding: 0;
-  }
 `;
+
