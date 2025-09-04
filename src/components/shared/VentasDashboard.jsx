@@ -5,32 +5,36 @@ import { GraficoVentasPorFecha } from "./GraficoVentasPorFechas";
 import { useVentasData } from "@/hooks/useVentasData";
 import { useVentasPorFechaData } from "@/hooks/useVentasPorFechaData";
 import { styled } from "styled-components";
-import { obtenerRangoPorDefecto, formatoFecha} from "@/utils/fechas";
+import { obtenerRangoPorDefecto, formatoFecha } from "@/utils/formatoFecha";
 import { TableVentas } from "./TableVentas";
 
 export const VentasDashboard = ({ material }) => {
-  const [rango, setRango] = useState({ startDate: null, endDate: null });
-  const { ventas, loading } = useVentasData(material);
+  const [rango, setRango] = useState(() => obtenerRangoPorDefecto());
+  const { ventas, loading } = useVentasData(material, rango);
   const { ventasFiltradas, loading: loadingPorFecha } = useVentasPorFechaData(
     material,
     rango
   );
-
-  const rangoFinal = rango.startDate
-    ? rango
-    : obtenerRangoPorDefecto(ventas);
+  const dataKeyTipo = `tipo_${material}`;
+  const rangoFinal = rango.startDate ? rango : obtenerRangoPorDefecto(ventas);
   return (
     <VentasChartContainer>
+
+      {loading ? <p>Cargando...</p> : (
       <VentasChart
         material={material}
         ventas={ventas}
         rango={rango}
         setRango={setRango}
-        RangoFechasComponent={RangoFechasComponent}
       />
-      {loading ? <p>Cargando...</p> : <p>Total registros: {ventas.length}</p>}
+      )}
 
-      <TableVentas ventas={ventasFiltradas} rango={rango} />
+      <TableVentas
+        ventas={ventas}
+        rango={rango}
+        dataKeyTipo={dataKeyTipo}
+        headers={["Tipo", "Cantidad (kg)", "Total"]}
+      />
 
       <GraficoVentasPorFecha
         material={material}
@@ -46,7 +50,6 @@ export const VentasDashboard = ({ material }) => {
 
 const VentasChartContainer = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: center;
   background-color: ${({ theme }) => theme.colores.blancoHumo};
   border-radius: 1rem;

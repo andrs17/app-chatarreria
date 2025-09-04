@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export const useVentasData = (material, rango) => {
+export const useVentasData = (material, rango = {}) => {
   const [ventas, setVentas] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -10,7 +10,7 @@ export const useVentasData = (material, rango) => {
       setLoading(true);
       try {
         let url = `http://localhost:3000/api/ventas-${material}/resumen`;
-        if (rango.startDate && rango.endDate) {
+        if (rango?.startDate && rango?.endDate) {
           url += `?inicio=${rango.startDate}&fin=${rango.endDate}`;
         }
         const { data } = await axios.get(url);

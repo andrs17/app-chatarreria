@@ -7,21 +7,17 @@ export const TableVentas = ({ ventas = [], rango, headers = [], dataKeyTipo }) =
   const rangoFinal =
     rango?.startDate && rango?.endDate ? rango : obtenerRangoPorDefecto(ventas);
 
-  console.log(ventas);
-  console.log(obtenerRangoPorDefecto);
+  
   return (
     <TableWrapper>
       <h3>
-        {formatoFecha(rangoFinal?.startDate)} al{" "}
-        {formatoFecha(rangoFinal?.endDate)}
+        {formatoFecha(rangoFinal?.startDate)} al {formatoFecha(rangoFinal?.endDate)}
       </h3>
       <table>
         <thead>
           <tr>
             {headers.length > 0 ? (
-              headers.map((header, index) => (
-                <th key={index}>{header}</th>
-              ))
+              headers.map((header, index) => <th key={index}>{header}</th>)
             ) : (
               <>
                 <th>Tipo</th>
@@ -32,7 +28,7 @@ export const TableVentas = ({ ventas = [], rango, headers = [], dataKeyTipo }) =
           </tr>
         </thead>
         <tbody>
-          {ventas.length > 0  ? (
+          {ventas.length > 0 ? (
             ventas.map((venta, index) => (
               <tr key={index}>
                 <td>{venta[dataKeyTipo]}</td>

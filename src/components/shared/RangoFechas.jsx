@@ -61,6 +61,8 @@ const CalendarWrapper = styled.div`
   margin-bottom: 1.4rem;
   text-align: center;
 
+  
+
   .contenedor-fecha {
     width: 100%;
     display: flex;
