@@ -10,8 +10,10 @@ export const useVentasData = (material, rango = {}) => {
       setLoading(true);
       try {
         let url = `http://localhost:3000/api/ventas-${material}/resumen`;
+        const formatDate = (date) => date.toISOString().split("T")[0];
+        
         if (rango?.startDate && rango?.endDate) {
-          url += `?inicio=${rango.startDate}&fin=${rango.endDate}`;
+          url += `?inicio=${formatDate(rango.startDate)}&fin=${formatDate(rango.endDate)}`;
         }
         const { data } = await axios.get(url);
         setVentas(data);

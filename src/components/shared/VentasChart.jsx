@@ -1,4 +1,4 @@
-// src/components/dashboards/shared/VentasChart.jsx
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { theme } from "@/styles/theme.js";
 import {
@@ -10,13 +10,25 @@ import {
   Cell,
 } from "recharts";
 import { RangoFechas } from "./RangoFechas.jsx";
+import { obtenerRangoPorDefecto } from "@/utils/formatoFecha.js";
 
-export const VentasChart = ({
-  material,
-  ventas,
-  rango,
-  setRango,
-}) => {
+export const VentasChart = ({ material, ventas, rango, setRango, rangoInicial }) => {
+  const [showAlert, setShowAlert] = useState(false);
+
+  useEffect(() => {
+    if (ventas.length === 0 && rango.startDate && rango.endDate) {
+      setShowAlert(true);
+
+      const timer = setTimeout(() => {
+        setShowAlert(false);
+        setRango(obtenerRangoPorDefecto());
+      }, 3000);
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [ventas, rango, setRango, obtenerRangoPorDefecto()]);
+
   const normalize = (str) =>
     str
       ?.trim()
@@ -37,17 +49,14 @@ export const VentasChart = ({
     coloresMap[normalize(tipo)] || theme.colores.amarillo;
 
   const dataKeyTipo = `tipo_${material}`;
-  
 
   return (
     <ChartCard>
       <h2>Total por tipo de {material.toUpperCase()}</h2>
       <RangoFechas onChange={setRango} />
 
-      {ventas.length === 0 ? (
-        <p>No hay datos disponibles para el rango seleccionado.</p>
-      ) : (
-        <>
+      {showAlert && <p>No hay datos disponibles para el rango seleccionado.</p>}
+      {ventas.length > 0 && (
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={ventas}>
               <XAxis
@@ -74,9 +83,7 @@ export const VentasChart = ({
               </Bar>
             </BarChart>
           </ResponsiveContainer>
-          
-        </>
-      )}
+        )}
     </ChartCard>
   );
 };
@@ -88,9 +95,7 @@ const ChartCard = styled.div`
   background-color: ${({ theme }) => theme.colores.blancoHumo};
   border-radius: 1rem;
   box-shadow: 3px 3px 5px ${({ theme }) => theme.colores.azulGris};
-  padding: 1rem;
-  margin-bottom: 2rem;
-  width: 100%;
-  height: 100%;
-  border: 1px solid red;
+  padding: 0.5rem;
+  margin-top: 4rem;
+  width: 95%;
 `;

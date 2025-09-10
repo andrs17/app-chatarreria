@@ -55,13 +55,13 @@ const TableWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  margin-left: 4rem;
+  margin-left: 3.5rem;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   width: 85%;
   background-color: ${({ theme }) => theme.colores.blancoHumo};
   border-radius: 30px;
-  border: 3px solid ${({ theme }) => theme.colores.verdeReciclaje};
+  box-shadow: 0 4px 6px ${({ theme }) => theme.colores.azulGris};
 
   table {
     width: 100%;
@@ -103,5 +103,20 @@ const TableWrapper = styled.div`
     background-color: ${({ theme }) => theme.colores.azulSuave};
     color: ${({ theme }) => theme.colores.blancoHumo};
     transition: 0.2s ease-in-out;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.laptop}) {
+    margin-left: 0;
+    width: 90%;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 0.8rem;
+    width: 100%;
+
+    table{
+      font-size: 0.7rem;
+      
+    }
   }
 `;

@@ -45,7 +45,7 @@ export const ButtonColumn = styled.div`
   gap: 0.8rem;
   margin-top: 5rem;
   max-height: max-content;
-  width: 15%;
+  width: 12%;
   border-radius: 15px;
   padding: 0.5rem;
 

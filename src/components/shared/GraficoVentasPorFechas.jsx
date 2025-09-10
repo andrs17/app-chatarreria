@@ -8,16 +8,13 @@ import {
   ResponsiveContainer,
   LabelList,
 } from "recharts";
+import styled from "styled-components";
+import { theme } from "@/styles/theme.js";
 import { format, parseISO, startOfYear } from "date-fns";
 import { es } from "date-fns/locale";
 import { obtenerVentasPorFecha } from "@/services/ventasService.js";
 import { RangoFechas } from "./RangoFechas.jsx";
-import {
-  GraficoWrapper,
-  Titulo,
-  NoDataText,
-} from "../dashboards/pet/stylesGraficoVentaPetPorFecha.js";
-import { theme } from "@/styles/theme.js";
+
 import { CustomTooltip } from "./CustonTooltip.jsx";
 
 export const GraficoVentasPorFecha = ({ material }) => {
@@ -124,3 +121,27 @@ export const GraficoVentasPorFecha = ({ material }) => {
     </GraficoWrapper>
   );
 };
+
+const GraficoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: ${theme.colores.azulSuave};
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 16px;
+  margin-top: 2rem;
+`;
+
+const Titulo = styled.h2`
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: ${theme.colores.azulGris};
+  text-align: center;
+`;
+
+const NoDataText = styled.p`
+  text-align: center;
+  color: ${theme.colores.azulGris};
+  font-size: 12rem;
+`;

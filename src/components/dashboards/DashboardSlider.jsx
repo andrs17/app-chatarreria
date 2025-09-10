@@ -2,13 +2,13 @@
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import styled from "styled-components";
-import {VentasDashboard} from "../shared/VentasDashboard.jsx";
+import { VentasDashboard } from "../shared/VentasDashboard.jsx";
 import { RangoFechas } from "../shared/RangoFechas.jsx";
 import { theme } from "../../styles/theme.js";
 
-const dashboards = [
-  { label: "PET", component: <VentasDashboard material="pet" RangoFechasComponent={RangoFechas} /> },
-  { label: "PASTA", component: <VentasDashboard material="pasta" RangoFechasComponent={RangoFechas} /> },
+export const dashboards = [
+  { label: "PET", material: "pet" },
+  { label: "PASTA", material: "pasta" },
 ];
 
 export const DashboardSlider = () => {
@@ -26,14 +26,14 @@ export const DashboardSlider = () => {
     );
   };
 
+  const { label, material } = dashboards[currentIndex];
+
   return (
     <ContentContainer>
-      <TitleDashboard>Dashboard</TitleDashboard>
       <NavButton onClick={goToPrevious}>
         <ChevronLeft size={28} />
       </NavButton>
-      <TitleMaterial>{dashboards[currentIndex].label}</TitleMaterial>
-      {dashboards[currentIndex].component}
+      <VentasDashboard material={material} label={label} />
       <NavButton onClick={goToNext}>
         <ChevronRight size={28} />
       </NavButton>
@@ -48,7 +48,7 @@ const ContentContainer = styled.div`
   border-radius: 2rem;
   box-shadow: 0 4px 6px ${({ theme }) => theme.colores.azulGris};
   overflow: hidden;
-  padding-top: 5rem;
+  padding: 5rem 1rem;
   padding-bottom: 1.5rem;
   display: flex;
   align-items: center;
@@ -58,70 +58,17 @@ const ContentContainer = styled.div`
   margin: 4rem 1.5rem 1.5rem 0;
   position: relative;
 
-  @media (max-width: ${({theme}) => theme.breakpoints.laptop}){
+  @media (max-width: ${({ theme }) => theme.breakpoints.laptop}) {
     padding: 5rem 0.7rem 2rem 0.7rem;
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    
     padding-bottom: 4rem;
     margin: 2rem 0 1rem 0;
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    
     gap: 0;
-  }
-`;
-
-const TitleDashboard = styled.h1`
-  padding: 17px;
-  border-radius: 10px;
-  width: fit-content;
-  position: absolute;
-  text-align: center;
-  font-size: 1.8rem;
-  left: 2.5rem;
-  top: 20px;
-  color: ${theme.colores.azulGris};
-  box-shadow: 0 1px 2px ${({ theme }) => theme.colores.azulGris};
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    font-size: 1.2rem;
-    padding: 10px;
-    
-    left: 10%;
-    width: 30%;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    left: 5%;
-    font-size: 1rem;
-  }
-`;
-
-const TitleMaterial = styled.h2`
-  width: min-content;
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  position: absolute;
-  color: ${theme.colores.blancoHumo};
-  top: 25px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: ${theme.colores.azulGris};
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.laptop}) {
-    font-size: 1.5rem;
-    top: 100px;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    font-size: 1.2rem;
-    top: 100px;
   }
 `;
 
@@ -143,12 +90,11 @@ const NavButton = styled.button`
     transform: scale(1.1);
   }
 
-
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-  position: absolute;
-  bottom: 10px;
+    position: absolute;
+    bottom: 10px;
 
-  &:first-of-type {
+    &:first-of-type {
       left: 45%;
       transform: translateX(-110%);
     }
@@ -157,12 +103,10 @@ const NavButton = styled.button`
       right: 45%;
       transform: translateX(110%);
     }
-  
   }
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     width: 40px;
     height: 40px;
     padding: 0.2rem;
-    
   }
 `;

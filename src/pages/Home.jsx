@@ -1,7 +1,6 @@
 import { useState } from "react";
 import ModalVentas from "../components/vistaModalVentas/ModalVentas";
 import { DashboardSlider } from "@/components/dashboards/DashboardSlider";
-import { FaShoppingCart } from "react-icons/fa";
 import {
   Container,
   Title,
