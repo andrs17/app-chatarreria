@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import styled from "styled-components";
 import { VentasDashboard } from "../shared/VentasDashboard.jsx";
-import { RangoFechas } from "../shared/RangoFechas.jsx";
 import { theme } from "../../styles/theme.js";
 
 export const dashboards = [
@@ -11,9 +10,12 @@ export const dashboards = [
   { label: "COBRE", material: "cobre" },
   { label: "PASTA", material: "pasta" },
   { label: "ALUMINIO", material: "aluminio" },
+  { label: "ACERO", material: "acero" },
+  { label: "ARCHIVO", material: "archivo" },
   { label: "CARTON", material: "carton" },
   { label: "VIDRIO", material: "vidrio" },
   { label: "CHATARRA", material: "chatarra" },
+  { label: "PLASTICO", material: "plastico" },
 ];
 
 export const DashboardSlider = () => {
@@ -49,9 +51,9 @@ export const DashboardSlider = () => {
 // Styled Components
 
 const ContentContainer = styled.div`
-  background-color: ${theme.colores.blancoHumo};
-  border-radius: 2rem;
-  box-shadow: 0 4px 6px ${({ theme }) => theme.colores.azulGris};
+  background-color: transparent;
+  border-radius: 3rem;
+  border: 2px solid ${theme.colores.azulGris};
   overflow: hidden;
   padding: 5rem 1rem;
   padding-bottom: 1.5rem;
@@ -59,7 +61,7 @@ const ContentContainer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 1.2rem;
-  width: 95%;
+  width: 80%;
   margin: 4rem 1.5rem 1.5rem 0;
   position: relative;
 

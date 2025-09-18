@@ -82,11 +82,10 @@ const VentasChartContainer = styled.div`
 
   align-items: center;
   background-color: ${({ theme }) => theme.colores.blancoHumo};
-  border-radius: 3rem;
-  box-shadow: 0px 4px 6px ${({ theme }) => theme.colores.azulGris};
-  padding: 2rem;
+  border-radius: 4rem;
+  
   margin-bottom: 2rem;
-  width: 90%;
+  width: 80%;
   height: 100%;
 
   animation: ${floating3D} 9s ease-in-out infinite;

@@ -10,8 +10,8 @@ const router = express.Router();
 const material = "cobre";
 
 router.get("/", obtenerVentas(material));
-router.get("/resumen", obtenerResumenVentas(material, false));
+router.get("/resumen", obtenerResumenVentas(material));
 router.get("/por-fechas", obtenerVentasPorFecha(material));
-router.post("/", registrarVenta(material, false));
+router.post("/", registrarVenta(material));
 
 export default router;

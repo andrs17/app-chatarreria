@@ -7,7 +7,7 @@ export const Container = styled.div`
   gap: 30px;
   padding: 4rem 1rem 1rem 1rem;
   position: relative;
-  background-color: ${({ theme }) => theme.colores.blancoHumo};
+  background-color: ${({ theme }) => theme.colores.a};
   
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {

@@ -1,8 +1,17 @@
 import express from "express";
-import { registrarVentasArchivo } from "../controllers/ventasArchivoController.js";
+import {
+  registrarVenta,
+  obtenerVentas,
+  obtenerResumenVentas,
+  obtenerVentasPorFecha,
+} from "../controllers/ventasController.js";
 
 const router = express.Router();
+const material = "archivo";
 
-router.post("/", registrarVentasArchivo);
+router.get("/", obtenerVentas(material));
+router.get("/resumen", obtenerResumenVentas(material, false));
+router.get("/por-fechas", obtenerVentasPorFecha(material));
+router.post("/", registrarVenta(material, false));
 
 export default router;

@@ -76,7 +76,7 @@ const TableWrapper = styled.div`
   padding: 20px;
   margin-left: 3.5rem;
   -webkit-overflow-scrolling: touch;
-  width: 85%;
+  width: 80%;
   background-color: ${({ theme }) => theme.colores.blancoHumo};
   border-radius: 30px;
   box-shadow: 0 4px 6px ${({ theme }) => theme.colores.azulGris};

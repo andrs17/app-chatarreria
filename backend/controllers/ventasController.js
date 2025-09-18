@@ -12,9 +12,9 @@ export const registrarVenta =
         fecha_venta,
       } = req.body;
 
-      // 👇 si hay tipos, buscamos el campo correcto
+      // 👇 si hay tipos material, buscamos el campo correcto
       const tipo_id = conTipoMaterial ? req.body[`tipo_${material}_id`] : null;
-
+      
       if (conTipoMaterial && !tipo_id) {
         return res
           .status(400)
