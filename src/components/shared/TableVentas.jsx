@@ -3,15 +3,36 @@ import styled from "styled-components";
 import { formatoMoneda } from "@/utils/formatoMoneda.js";
 import { formatoFecha, obtenerRangoPorDefecto } from "@/utils/formatoFecha.js";
 
-export const TableVentas = ({ ventas = [], rango, headers = [], dataKeyTipo }) => {
+export const TableVentas = ({
+  ventas = [],
+  rango,
+  headers = [],
+  dataKeyTipo,
+  material,
+  conTipo = true, // prop que indica si se muestra tipo material o no
+}) => {
   const rangoFinal =
     rango?.startDate && rango?.endDate ? rango : obtenerRangoPorDefecto(ventas);
 
-  
+  const data = conTipo
+    ? ventas.map((v) => ({
+        tipo: v[dataKeyTipo] || material.toUpperCase(),
+        total_kg: parseFloat(v.total_kg),
+        total: parseFloat(v.total),
+      }))
+    : [
+        {
+          tipo: material.toUpperCase(),
+          total_kg: ventas.reduce((acc, v) => acc + parseFloat(v.total_kg), 0),
+          total: ventas.reduce((acc, v) => acc + parseFloat(v.total), 0),
+        },
+      ];
+
   return (
     <TableWrapper>
       <h3>
-        {formatoFecha(rangoFinal?.startDate)} al {formatoFecha(rangoFinal?.endDate)}
+        {formatoFecha(rangoFinal?.startDate)} al{" "}
+        {formatoFecha(rangoFinal?.endDate)}
       </h3>
       <table>
         <thead>
@@ -28,10 +49,10 @@ export const TableVentas = ({ ventas = [], rango, headers = [], dataKeyTipo }) =
           </tr>
         </thead>
         <tbody>
-          {ventas.length > 0 ? (
-            ventas.map((venta, index) => (
+          {data.length > 0 ? (
+            data.map((venta, index) => (
               <tr key={index}>
-                <td>{venta[dataKeyTipo]}</td>
+                <td>{venta.tipo}</td>
                 <td>{formatoMoneda(venta.total_kg)}</td>
                 <td>{formatoMoneda(venta.total)}</td>
               </tr>
@@ -47,8 +68,6 @@ export const TableVentas = ({ ventas = [], rango, headers = [], dataKeyTipo }) =
   );
 };
 
-
-
 // Se reutiliza el mismo estilo
 const TableWrapper = styled.div`
   display: flex;
@@ -56,7 +75,6 @@ const TableWrapper = styled.div`
   align-items: center;
   padding: 20px;
   margin-left: 3.5rem;
-  overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   width: 85%;
   background-color: ${({ theme }) => theme.colores.blancoHumo};
@@ -64,7 +82,7 @@ const TableWrapper = styled.div`
   box-shadow: 0 4px 6px ${({ theme }) => theme.colores.azulGris};
 
   table {
-    width: 100%;
+    width: 95%;
     border-collapse: collapse;
     font-size: 0.95rem;
     color: ${({ theme }) => theme.colores.azulGris};
@@ -114,9 +132,8 @@ const TableWrapper = styled.div`
     font-size: 0.8rem;
     width: 100%;
 
-    table{
+    table {
       font-size: 0.7rem;
-      
     }
   }
 `;

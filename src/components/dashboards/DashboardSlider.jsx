@@ -8,7 +8,12 @@ import { theme } from "../../styles/theme.js";
 
 export const dashboards = [
   { label: "PET", material: "pet" },
+  { label: "COBRE", material: "cobre" },
   { label: "PASTA", material: "pasta" },
+  { label: "ALUMINIO", material: "aluminio" },
+  { label: "CARTON", material: "carton" },
+  { label: "VIDRIO", material: "vidrio" },
+  { label: "CHATARRA", material: "chatarra" },
 ];
 
 export const DashboardSlider = () => {

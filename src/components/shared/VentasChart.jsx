@@ -12,22 +12,26 @@ import {
 import { RangoFechas } from "./RangoFechas.jsx";
 import { obtenerRangoPorDefecto } from "@/utils/formatoFecha.js";
 
-export const VentasChart = ({ material, ventas, rango, setRango, rangoInicial }) => {
+export const VentasChart = ({
+  material,
+  ventas,
+  rango,
+  setRango,
+  rangoInicial,
+  conTipo = true, // por defecto asumimos que sí tiene tipos
+}) => {
   const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     if (ventas.length === 0 && rango.startDate && rango.endDate) {
       setShowAlert(true);
-
       const timer = setTimeout(() => {
         setShowAlert(false);
         setRango(obtenerRangoPorDefecto());
       }, 3000);
-      return () => {
-        clearTimeout(timer);
-      };
+      return () => clearTimeout(timer);
     }
-  }, [ventas, rango, setRango, obtenerRangoPorDefecto()]);
+  }, [ventas, rango, setRango]);
 
   const normalize = (str) =>
     str
@@ -38,52 +42,70 @@ export const VentasChart = ({ material, ventas, rango, setRango, rangoInicial })
       .replace(/[\s_]/g, "");
 
   const coloresMap = {
-    pettransparente: theme.colores.azulSuave,
-    petcolor: theme.colores.verdeReciclaje,
-    petmalta: theme.colores.azulGris,
-    petaceite: theme.colores.amarillo,
-    // Se pueden agregar colores para pasta u otros materiales
+    pet: theme.colores.azulGris,
+    pasta: theme.colores.verdeReciclaje,
+    aluminio: theme.colores.azulSuave,
+    carton: theme.colores.verdeReciclaje,
+    vidrio: theme.colores.amarillo,
+    chatarra: theme.colores.azulGris,
+    cobre: theme.colores.verdeReciclaje
   };
 
-  const getColor = (tipo) =>
-    coloresMap[normalize(tipo)] || theme.colores.amarillo;
+  const getColor = (material) =>
+    coloresMap[normalize(material)] || theme.colores.amarillo;
 
-  const dataKeyTipo = `tipo_${material}`;
+  const dataKeyTipo = conTipo ? `tipo_${material}` : "material";
+  // si tiene tipos, mapea cada venta a su tipo y kg
+  const data = conTipo
+    ? ventas.map((v) => ({
+        [`tipo_${material}`]: v[`tipo_${material}`] || material.toUpperCase(),
+        total_kg: parseFloat(v.total_kg),
+      }))
+    : [
+        {
+          [dataKeyTipo]: material.toUpperCase(),
+          total_kg: ventas.reduce((acc, v) => acc + parseFloat(v.total_kg), 0),
+        },
+      ];
 
   return (
     <ChartCard>
-      <h2>Total por tipo de {material.toUpperCase()}</h2>
+      <h2>
+        {conTipo
+          ? `Total por tipo de ${material.toUpperCase()}`
+          : `Total de ${material.toUpperCase()}`}
+      </h2>
       <RangoFechas onChange={setRango} />
 
       {showAlert && <p>No hay datos disponibles para el rango seleccionado.</p>}
-      {ventas.length > 0 && (
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={ventas}>
-              <XAxis
-                dataKey={dataKeyTipo}
-                angle={-20}
-                textAnchor="start"
-                interval={0}
-                fontSize={11}
-                dx={-40}
-                dy={20}
-              />
-              <Bar dataKey="total_kg" barSize={35} radius={[10, 10, 0, 0]}>
-                {ventas.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={getColor(entry[dataKeyTipo])}
-                  />
-                ))}
-                <LabelList
-                  dataKey="total_kg"
-                  position="top"
-                  formatter={(value) => `${value} kg`}
+      {data.length > 0 && (
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart data={data}>
+            <XAxis
+              dataKey={dataKeyTipo}
+              angle={-20}
+              textAnchor="start"
+              interval={0}
+              fontSize={11}
+              dx={-40}
+              dy={20}
+            />
+            <Bar dataKey="total_kg" barSize={35} radius={[10, 10, 0, 0]}>
+              {data.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={getColor( material)}
                 />
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        )}
+              ))}
+              <LabelList
+                dataKey="total_kg"
+                position="top"
+                formatter={(value) => `${value} kg`}
+              />
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      )}
     </ChartCard>
   );
 };

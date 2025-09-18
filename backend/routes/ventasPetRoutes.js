@@ -1,12 +1,17 @@
 import express from 'express';
-import { registrarVentasPet, obtenerVentasPET,obtenerResumenVentasPET,obtenerVentasPetPorFecha } from '../controllers/ventasPetController.js';
+import { 
+  registrarVenta, 
+  obtenerVentas,
+  obtenerResumenVentas,
+  obtenerVentasPorFecha
+} from '../controllers/ventasController.js';
 
 const router = express.Router();
+const material = "pet"; // <- dinámico
 
-
-router.get('/', obtenerVentasPET);
-router.get('/resumen', obtenerResumenVentasPET);
-router.get('/por-fechas', obtenerVentasPetPorFecha);
-router.post('/', registrarVentasPet);
+router.get('/', obtenerVentas(material));
+router.get('/resumen', obtenerResumenVentas(material));
+router.get('/por-fechas', obtenerVentasPorFecha(material));
+router.post('/', registrarVenta(material));
 
 export default router;

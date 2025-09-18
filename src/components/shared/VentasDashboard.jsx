@@ -8,8 +8,6 @@ import styled, { keyframes } from "styled-components";
 import { obtenerRangoPorDefecto, formatoFecha } from "@/utils/formatoFecha";
 import { TableVentas } from "./TableVentas";
 import { theme } from "@/styles/theme.js";
-import { dashboards } from "../dashboards/DashboardSlider.jsx";
-
 
 const floating3D = keyframes`
   0% {
@@ -51,6 +49,7 @@ export const VentasDashboard = ({ material, label }) => {
           rango={rango}
           setRango={setRango}
           obtenerRangoPorDefecto={obtenerRangoPorDefecto}
+          conTipo={true}
         />
       )}
 
@@ -59,6 +58,8 @@ export const VentasDashboard = ({ material, label }) => {
         rango={rango}
         dataKeyTipo={dataKeyTipo}
         headers={["Tipo", "Cantidad (kg)", "Total"]}
+        material={material}
+        conTipo={true}
       />
 
       <GraficoVentasPorFecha
@@ -120,6 +121,5 @@ const TitleMaterial = styled.h2`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     font-size: 1.2rem;
-    
   }
 `;
