@@ -4,28 +4,12 @@ import { VentasChart } from "./VentasChart";
 import { GraficoVentasPorFecha } from "./GraficoVentasPorFechas";
 import { useVentasData } from "@/hooks/useVentasData";
 import { useVentasPorFechaData } from "@/hooks/useVentasPorFechaData";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { obtenerRangoPorDefecto, formatoFecha } from "@/utils/formatoFecha";
 import { TableVentas } from "./TableVentas";
 import { theme } from "@/styles/theme.js";
 
-const floating3D = keyframes`
-  0% {
-    transform: translateX(0) translateY(0) scale(1);
-  }
-  25% {
-    transform: translateX(6px) translateY(0px) scale(1.01);
-  }
-  50% {
-    transform: translateX(0) translateY(0) scale(1);
-  }
-  75% {
-    transform: translateX(-6px) translateY(0px) scale(0.99);
-  }
-  100% {
-    transform: translateX(0) translateY(0) scale(1);
-  }
-`;
+
 
 export const VentasDashboard = ({ material, label }) => {
   const [rango, setRango] = useState(() => obtenerRangoPorDefecto());
@@ -88,7 +72,6 @@ const VentasChartContainer = styled.div`
   width: 80%;
   height: 100%;
 
-  animation: ${floating3D} 9s ease-in-out infinite;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.laptop}) {
     grid-template-columns: 1fr;

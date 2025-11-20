@@ -65,9 +65,7 @@ const ContentContainer = styled.div`
   margin: 4rem 1.5rem 1.5rem 0;
   position: relative;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.laptop}) {
-    padding: 5rem 0.7rem 2rem 0.7rem;
-  }
+  
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     padding-bottom: 4rem;

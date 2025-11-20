@@ -3,11 +3,10 @@ import { Link } from "react-router-dom";
 
 export const Container = styled.div`
   display: flex;
-  justify-content: space-around;
-  gap: 30px;
-  padding: 4rem 1rem 1rem 1rem;
+  justify-content: center;
+  
   position: relative;
-  background-color: ${({ theme }) => theme.colores.a};
+  background-color: ${({ theme }) => theme.colores.azulGris};
   
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
@@ -45,7 +44,7 @@ export const ButtonColumn = styled.div`
   gap: 0.8rem;
   margin-top: 5rem;
   max-height: max-content;
-  width: 12%;
+  width: 7%;
   border-radius: 15px;
   padding: 0.5rem;
 
@@ -64,7 +63,7 @@ export const NavButton = styled(Link).attrs((props) => ({
   background-color: ${({ theme }) => theme.colores.blancoHumo};
   color: ${({ theme }) => theme.colores.azulGris};
   box-shadow: 0 4px 6px ${({ theme }) => theme.colores.azulGris};
-  padding: 1.8rem;
+  padding: 1rem;
   width: 100%;
   font-weight: bold;
   border-radius: 9px;
@@ -74,7 +73,7 @@ export const NavButton = styled(Link).attrs((props) => ({
   align-items: center;
   border: none;
   font-size: 0.7rem;
-  height: 3px;
+  height: 4px;
   transition: all 0.15s ease;
 
   &:hover {
@@ -93,6 +92,5 @@ export const NavButton = styled(Link).attrs((props) => ({
   }
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     width: 3.5rem;
-    
   }
 `;
