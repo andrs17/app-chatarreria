@@ -2,12 +2,12 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Container = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 200px 1fr;
   justify-content: center;
-  
+
   position: relative;
   background-color: ${({ theme }) => theme.colores.azulGris};
-  
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     flex-direction: column;
@@ -28,7 +28,7 @@ export const Title = styled.h1`
   top: 2rem;
   font-size: 2rem;
 
-  color: ${({ theme }) => theme.colores.azulGris};
+  color: ${({ theme }) => theme.colores.blancoHumo};
   border-bottom: 2px solid black;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {

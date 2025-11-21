@@ -75,6 +75,7 @@ const VentasChartContainer = styled.div`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.laptop}) {
     grid-template-columns: 1fr;
+    width: 100%;
     justify-content: center;
     align-content: center;
     padding: 1.5rem;

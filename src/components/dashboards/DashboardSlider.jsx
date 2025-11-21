@@ -51,16 +51,16 @@ export const DashboardSlider = () => {
 // Styled Components
 
 const ContentContainer = styled.div`
-  background-color: transparent;
+  background-color: ${theme.colores.blancoHumo};
   border-radius: 3rem;
-  border: 2px solid ${theme.colores.azulGris};
+  border: 2px solid ${theme.colores.amarillo};
   overflow: hidden;
-  padding: 5rem 1rem;
+  
   padding-bottom: 1.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.2rem;
+  gap: 0.8rem;
   width: 80%;
   margin: 4rem 1.5rem 1.5rem 0;
   position: relative;
