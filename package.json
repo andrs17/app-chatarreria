@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
+    "format": "prettier --write \"src/**/*.{js,jsx,json,css,scss,md}\"",
     "preview": "vite preview",
     "dev:backend": "cd backend && npm start",
     "all": "concurrently \"npm run dev\" \"npm run dev:backend\""

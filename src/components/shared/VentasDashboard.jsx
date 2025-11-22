@@ -68,8 +68,8 @@ const VentasChartContainer = styled.div`
   background-color: ${({ theme }) => theme.colores.blancoHumo};
   border-radius: 4rem;
   
-  margin-bottom: 2rem;
-  width: 80%;
+  margin: 1rem 0;
+  width: 100%;
   height: 100%;
 
 
@@ -92,7 +92,7 @@ const TitleMaterial = styled.h2`
   margin-bottom: 1rem;
   position: absolute;
   color: ${theme.colores.verdeReciclaje};
-  top: 25px;
+  top: 10px;
   left: 50%;
   transform: translateX(-50%);
   box-shadow: 0 4px 6px ${({ theme }) => theme.colores.azulGris};

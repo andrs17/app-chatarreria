@@ -1,33 +1,86 @@
 import { useState } from "react";
+import { FaBars, FaTimes } from "react-icons/fa";
 import ModalVentas from "../components/vistaModalVentas/ModalVentas";
 import { DashboardSlider } from "@/components/dashboards/DashboardSlider";
 import {
   Container,
-  Title,
-  ButtonColumn,
+  Sidebar,
+  Content,
   NavButton,
+  Title,
+  MenuIcon,
+  Overlay,
 } from "./stylesHome";
 
 const Home = () => {
-  const [mostrarModal, setMostrarModal] = useState(false);
+  // Vista actual del panel derecho
+  const [vistaActual, setVistaActual] = useState("dashboard");
+
+  const [menuAbierto, setMenuAbierto] = useState(false);
+  // Render dinámico
+  const renderVista = () => {
+    switch (vistaActual) {
+      case "ventas":
+        return <ModalVentas />;
+      case "dashboard":
+        return <DashboardSlider />;
+      case "empleados":
+        return (
+          <h2 style={{ color: "white" }}>Vista de empleados (placeholder)</h2>
+        );
+
+      default:
+        return <DashboardSlider />;
+    }
+  };
   return (
     <Container>
-      <Title>System_recycle</Title>
-      <ButtonColumn $position="left">
-        <NavButton as="button" onClick={() => setMostrarModal(true)}>
+      <MenuIcon onClick={() => setMenuAbierto(true)}>
+        <FaBars size={24} color="white" />
+      </MenuIcon>
+
+      {menuAbierto && (<Overlay onClick={() => setMenuAbierto(false)} />)}
+      <Sidebar $abierto={menuAbierto}>
+
+        <Title>System Recycle</Title>
+
+        <NavButton
+          as="button"
+          onClick={() => {
+            setVistaActual("dashboard");
+            setMenuAbierto(false);
+          }}
+        >
+          Dashboards
+        </NavButton>
+        <NavButton
+          as="button"
+          onClick={() => {
+            setVistaActual("ventas");
+            setMenuAbierto(false);
+          }}
+        >
           Registrar Ventas
         </NavButton>
-        <NavButton as="button" >
+
+        <NavButton
+          as="button"
+          onClick={() => {
+            setVistaActual("empleados");
+            setMenuAbierto(false);
+          }}
+        >
           Empleados
         </NavButton>
-      </ButtonColumn>
 
-      <DashboardSlider />
+        <FaTimes
+          size={22}
+          style={{ marginTop: "auto", cursor: "pointer", color: "white" }}
+          onClick={() => setMenuAbierto(false)}
+        />
+      </Sidebar>
 
-      
-      {/* 🧩 Modal de ventas */}
-      {mostrarModal && <ModalVentas onClose={() => setMostrarModal(false)} />}
-      {/* 🧩 Dashboard de ventas */}
+      <Content>{renderVista()}</Content>
     </Container>
   );
 };

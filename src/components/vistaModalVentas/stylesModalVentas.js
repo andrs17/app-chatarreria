@@ -2,16 +2,11 @@
 import styled from "styled-components";
 
 export const ModalOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
 `;
 
 export const ModalContainer = styled.div`
@@ -19,6 +14,7 @@ export const ModalContainer = styled.div`
   border-radius: 1rem;
   display: grid;
   grid-template-columns: 1fr;
+  justify-items: center;
   
   gap: 0.5rem;
   width: max-content;

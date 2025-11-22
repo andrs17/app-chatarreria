@@ -56,13 +56,12 @@ const ContentContainer = styled.div`
   border: 2px solid ${theme.colores.amarillo};
   overflow: hidden;
   
-  padding-bottom: 1.5rem;
+  
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.8rem;
-  width: 80%;
-  margin: 4rem 1.5rem 1.5rem 0;
+  width: 95%;
   position: relative;
 
   
