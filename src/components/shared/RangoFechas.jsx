@@ -55,9 +55,8 @@ const CalendarWrapper = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
+  width: 30%;
   left: 30%;
-  width: 8rem;
-  font-size: 0.8rem;
   margin-bottom: 1.4rem;
   text-align: center;
 
@@ -74,8 +73,18 @@ const CalendarWrapper = styled.div`
     width: 100%;
     position: relative;
     margin-top: 10px;
+    
+  }
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    width: 20%;
+  }
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    width: 30%;
+    left: 5%;
   }
 `;
+
+
 
 const IconoCalendario = styled(BsCalendar2Date)`
   position: absolute;

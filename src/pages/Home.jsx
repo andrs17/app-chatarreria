@@ -21,7 +21,7 @@ const Home = () => {
   const renderVista = () => {
     switch (vistaActual) {
       case "ventas":
-        return <ModalVentas />;
+        return <ModalVentas onClose={() => setVistaActual("dashboard")} />;
       case "dashboard":
         return <DashboardSlider />;
       case "empleados":
@@ -39,9 +39,8 @@ const Home = () => {
         <FaBars size={24} color="white" />
       </MenuIcon>
 
-      {menuAbierto && (<Overlay onClick={() => setMenuAbierto(false)} />)}
+      {menuAbierto && <Overlay onClick={() => setMenuAbierto(false)} />}
       <Sidebar $abierto={menuAbierto}>
-
         <Title>System Recycle</Title>
 
         <NavButton

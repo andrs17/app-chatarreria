@@ -91,7 +91,10 @@ const VentasModal = ({ onClose }) => {
   return (
     <ModalOverlay>
       <ModalContainer>
-        <CloseButton onClick={onClose}>
+        <CloseButton onClick={() => {
+          setTipoVenta(null);
+          onClose();
+        }}>
           <FaTimes />
         </CloseButton>
         {tipoVenta === null ? (

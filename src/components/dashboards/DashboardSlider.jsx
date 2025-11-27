@@ -52,27 +52,30 @@ export const DashboardSlider = () => {
 
 const ContentContainer = styled.div`
   background-color: ${theme.colores.blancoHumo};
-  border-radius: 3rem;
-  border: 2px solid ${theme.colores.amarillo};
+  border-radius: 1.5rem;
   overflow: hidden;
   
   
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 2rem;
   gap: 0.8rem;
   width: 95%;
+  margin-top: 40px;
   position: relative;
 
   
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    padding-bottom: 4rem;
-    margin: 2rem 0 1rem 0;
+    width: 100%;
+    margin-top: 50px;
+    border-radius: 1rem;
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     gap: 0;
+    
   }
 `;
 

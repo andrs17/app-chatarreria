@@ -69,19 +69,19 @@ const FormularioVenta = ({ tipoVenta, campoTipo, labelTipo, onClose }) => {
             case "Cobre":
               tiposData = await obtenerTiposCobre();
               break;
-            case "ALUMINIO":
+            case "Aluminio":
               tiposData = await obtenerTiposAluminio();
               break;
-            case "PASTA":
+            case "Pasta":
               tiposData = await obtenerTiposPasta();
               break;
             case "PET":
               tiposData = await obtenerTiposPet();
               break;
-            case "VIDRIO":
+            case "Vidrio":
               tiposData = await obtenerTiposVidrio();
               break;
-            case "PLASTICO":
+            case "Plastico":
               tiposData = await obtenerTiposPlastico();
               break;
             default:

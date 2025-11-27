@@ -21,13 +21,14 @@ const StyledDateInput = styled.input`
   border-radius: 12px;
   border: none;
   font-size: 0.8rem;
-  width: 60%;
+  width: 95%;
   height: 2.5rem;
   font-weight: 700;
   text-align: end;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 3px 3px 5px ${({ theme }) => theme.colores.azulGris};
+
 
   &:hover {
     box-shadow: 3px 3px 5px ${({ theme }) => theme.colores.azulGris};

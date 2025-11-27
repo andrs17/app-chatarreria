@@ -84,5 +84,6 @@ export const NavButton = styled.button`
 export const Content = styled.div`
   padding: 1rem;
   overflow-y: auto;
-  justify-items: center;
+  align-items: center;
+  justify-content: center;
 `;

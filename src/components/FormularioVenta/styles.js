@@ -2,20 +2,20 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
-  padding: 1rem 3.4rem 1rem 0.5rem;
   background-color: ${({ theme }) => theme.colores.blancoHumo};
   border-radius: 16px;
   
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    max-width: 600px;
+    
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints.laptop}) {
-    max-width: 700px;
+   
   }
 `;
 
 export const Title = styled.h2`
+  margin-top: 1rem;
   margin-bottom: 1.5rem;
   font-size: 24px;
   text-align: center;
