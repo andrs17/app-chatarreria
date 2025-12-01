@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3000/api"; // Ajusta la URL según tu backend
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api"; // Ajusta la URL según tu backend
 
 export const registrarVenta = async (tipoVenta, datosVenta) =>{
   const endpoint = `${BASE_URL}/ventas-${tipoVenta.toLowerCase()}`;

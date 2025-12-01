@@ -1,6 +1,9 @@
 import express from "express";
-import cors from "cors";
+
 import dotenv from "dotenv";
+import helmet from "helmet";
+import morgan from "morgan";
+import compression from "compression";
 import ventasPetRoutes from "./routes/ventasPetRoutes.js";
 import clientesRoutes from "./routes/clientesRoutes.js";
 import empleadosRoutes from "./routes/empleadosRoutes.js";
@@ -19,21 +22,17 @@ import tiposAluminioRoutes from "./routes/tiposAluminioRoutes.js";
 import ventasCobreRoutes from "./routes/ventasCobreRoutes.js";
 import tiposCobreRoutes from "./routes/tiposCobreRoutes.js";
 import ventasAceroRoutes from "./routes/ventasAceroRoutes.js";
-
+import corsMiddleware from "./middleware/cors.js";
 dotenv.config();
 
 const app = express();
-app.use(express.json());
-
-
+app.use(express.json({limit: '10mb'}));
+app.use(helmet());
+app.use(morgan("dev"));
+app.use(compression());
 
 // Middlewares
-app.use(
-  cors({
-    origin: "http://localhost:5173", // Frontend en Vite
-    credentials: true,
-  })
-);
+app.use(corsMiddleware);
 
 // Rutas
 app.use("/api/ventas-pet", ventasPetRoutes);
@@ -56,8 +55,13 @@ app.use("/api/ventas-cobre", ventasCobreRoutes);
 app.use("/api/tipos-cobre", tiposCobreRoutes);
 app.use("/api/ventas-acero", ventasAceroRoutes);
 
+
+app.get("/health", (req, res) => {
+  res.json({ status: "OK" });
+});
+
 const PORT = process.env.PORT || 3000;
 // Iniciar el servidor
 app.listen(PORT, () => {
-  console.log(`Servidor Express corriendo en http://localhost:${PORT}`);
+  console.log(`Servidor Express corriendo en http://localhost:${PORT} - NODE_ENV=${process.env.NODE_ENV}`);
 });
