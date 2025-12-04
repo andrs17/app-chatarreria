@@ -78,9 +78,9 @@ export const obtenerVentas =
                  t.nombre AS tipo, v.cantidad_kg, v.precio_unitario,
                  (v.cantidad_kg * v.precio_unitario) AS total
           FROM ventas_${material} v
-          LEFT JOIN clientes c ON v.cliente_id = c.id
-          LEFT JOIN empleados e ON v.empleado_id = e.id
-          LEFT JOIN tipos_${material} t ON v.tipo_${material}_id = t.id
+           JOIN clientes c ON v.cliente_id = c.id
+           JOIN empleados e ON v.empleado_id = e.id
+           JOIN tipos_${material} t ON v.tipo_${material}_id = t.id
           ORDER BY v.fecha_venta DESC
         `;
       } else {
@@ -89,8 +89,8 @@ export const obtenerVentas =
                  v.cantidad_kg, v.precio_unitario,
                  (v.cantidad_kg * v.precio_unitario) AS total
           FROM ventas_${material} v
-          JOIN clientes c ON v.cliente_id = c.id
-          JOIN empleados e ON v.empleado_id = e.id
+          LEFT JOIN clientes c ON v.cliente_id = c.id
+          LEFT JOIN empleados e ON v.empleado_id = e.id
           ORDER BY v.fecha_venta DESC
         `;
       }
