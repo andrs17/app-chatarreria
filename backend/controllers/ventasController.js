@@ -14,7 +14,7 @@ export const registrarVenta =
 
       // 👇 si hay tipos material, buscamos el campo correcto
       const tipo_id = conTipoMaterial ? req.body[`tipo_${material}_id`] : null;
-      
+
       if (conTipoMaterial && !tipo_id) {
         return res
           .status(400)
@@ -78,9 +78,9 @@ export const obtenerVentas =
                  t.nombre AS tipo, v.cantidad_kg, v.precio_unitario,
                  (v.cantidad_kg * v.precio_unitario) AS total
           FROM ventas_${material} v
-          JOIN clientes c ON v.cliente_id = c.id
-          JOIN empleados e ON v.empleado_id = e.id
-          JOIN tipos_${material} t ON v.tipo_${material}_id = t.id
+          LEFT JOIN clientes c ON v.cliente_id = c.id
+          LEFT JOIN empleados e ON v.empleado_id = e.id
+          LEFT JOIN tipos_${material} t ON v.tipo_${material}_id = t.id
           ORDER BY v.fecha_venta DESC
         `;
       } else {
@@ -107,7 +107,8 @@ export const obtenerResumenVentas =
   (material, conTipoMaterial = true) =>
   async (req, res) => {
     const { inicio, fin } = req.query;
-    let query, params = [];
+    let query,
+      params = [];
 
     if (conTipoMaterial) {
       query = `
@@ -146,20 +147,16 @@ export const obtenerResumenVentas =
     }
   };
 
-export const obtenerVentasPorFecha =
-  (material) =>
-  async (req, res) => {
-    const { inicio, fin } = req.query;
+export const obtenerVentasPorFecha = (material) => async (req, res) => {
+  const { inicio, fin } = req.query;
 
-    if (!inicio || !fin) {
-      return res
-        .status(400)
-        .json({ error: "Fechas de inicio y fin requeridas" });
-    }
+  if (!inicio || !fin) {
+    return res.status(400).json({ error: "Fechas de inicio y fin requeridas" });
+  }
 
-    try {
-      const [rows] = await db.execute(
-        `
+  try {
+    const [rows] = await db.execute(
+      `
         SELECT 
           v.fecha_venta,
           v.cantidad_kg AS total_kg,
@@ -168,15 +165,15 @@ export const obtenerVentasPorFecha =
         WHERE v.fecha_venta BETWEEN ? AND ?
         ORDER BY v.fecha_venta ASC
       `,
-        [inicio, fin]
-      );
+      [inicio, fin]
+    );
 
-      res.status(200).json(rows);
-    } catch (error) {
-      console.error(
-        `Error al obtener ventas individuales de ${material}:`,
-        error
-      );
-      res.status(500).json({ error: "Error interno del servidor" });
-    }
-  };
+    res.status(200).json(rows);
+  } catch (error) {
+    console.error(
+      `Error al obtener ventas individuales de ${material}:`,
+      error
+    );
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
+};
