@@ -23,10 +23,14 @@ import ventasCobreRoutes from "./routes/ventasCobreRoutes.js";
 import tiposCobreRoutes from "./routes/tiposCobreRoutes.js";
 import ventasAceroRoutes from "./routes/ventasAceroRoutes.js";
 import corsMiddleware from "./middleware/cors.js";
+
+import testRoutes from "./routes/testRoutes.js";
+
+
 dotenv.config();
 
 const app = express();
-app.use(express.json({limit: '10mb'}));
+app.use(express.json({ limit: "10mb" }));
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(compression());
@@ -35,6 +39,8 @@ app.use(compression());
 app.use(corsMiddleware);
 
 // Rutas
+
+app.use("/api", testRoutes);
 app.use("/api/ventas-pet", ventasPetRoutes);
 
 app.use("/api/clientes", clientesRoutes);
@@ -55,7 +61,6 @@ app.use("/api/ventas-cobre", ventasCobreRoutes);
 app.use("/api/tipos-cobre", tiposCobreRoutes);
 app.use("/api/ventas-acero", ventasAceroRoutes);
 
-
 app.get("/health", (req, res) => {
   res.json({ status: "OK" });
 });
@@ -63,5 +68,7 @@ app.get("/health", (req, res) => {
 const PORT = process.env.PORT || 3000;
 // Iniciar el servidor
 app.listen(PORT, () => {
-  console.log(`Servidor Express corriendo en http://localhost:${PORT} - NODE_ENV=${process.env.NODE_ENV}`);
+  console.log(
+    `Servidor Express corriendo en http://localhost:${PORT} - NODE_ENV=${process.env.NODE_ENV}`
+  );
 });

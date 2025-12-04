@@ -6,10 +6,12 @@ dotenv.config();
 const poolConfig = {
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
-  database: process.env.DB_NAME,
   password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT,
   waitForConnections: true,
-  connectionLimit: Number(process.env.DB_CONNECTION_LIMIT || 10),
+  connectionLimit: process.env.DB_CONNECTION_LIMIT || 10,
+  ssl: process.env.DB_SSL === "true" ? {} : false,
   connectTimeout: 10000,
   // namedPlaceholders: true, // activa si usas placeholders con nombre
 };
@@ -20,7 +22,6 @@ if (process.env.DB_SSL && process.env.DB_SSL === "true") {
     rejectUnauthorized: false,
   };
 }
-
-const pool = mysql.createPool(poolConfig);
+ const pool = mysql.createPool(poolConfig);
 
 export default pool;
