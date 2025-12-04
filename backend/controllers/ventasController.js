@@ -94,6 +94,7 @@ export const obtenerVentas =
           ORDER BY v.fecha_venta DESC
         `;
       }
+      console.log("QUERY EJECUTADA:", query);
 
       const [rows] = await db.execute(query);
       res.status(200).json(rows);
