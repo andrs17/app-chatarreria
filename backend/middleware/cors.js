@@ -7,6 +7,10 @@ const allowedOrigins = (process.env.FRONTEND_URL || "")
   .map(origin => origin.trim())
   .filter(Boolean);
 
+  console.log("✅ FRONTEND_URL desde Render:", process.env.FRONTEND_URL);
+console.log("✅ Allowed Origins:", allowedOrigins);
+
+
 if (process.env.NODE_ENV !== "production") {
   allowedOrigins.push(
     "http://localhost:5173",
