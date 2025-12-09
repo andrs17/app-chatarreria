@@ -15,32 +15,34 @@ const VentasModal = ({ onClose }) => {
   const [tipoVenta, setTipoVenta] = useState(null);
 
   // 👇 Configuración para cada tipo de venta
+
+  const API = import.meta.env.VITE_API_URL;
   const ventasConfig = {
     ALUMINIO: {
       icon: <FaRecycle />,
       label: "Aluminio",
-      endpoint: "http://localhost:3000/api/tipos-Aluminio",
+      endpoint: "/tipos-aluminio",
       campo: "tipo_aluminio_id",
       labelTipo: "Tipo de Aluminio",
     },
     Cobre: {
       icon: <FaRecycle />,
       label: "Cobre",
-      endpoint: "http://localhost:3000/api/tipos-cobre",
+      endpoint: "/tipos-cobre",
       campo: "tipo_cobre_id",
       labelTipo: "Tipo de cobre",
     },
     PET: {
       icon: <FaRecycle />,
       label: "PET",
-      endpoint: "http://localhost:3000/api/tipos-pet",
+      endpoint: "/tipos-pet",
       campo: "tipo_pet_id",
       labelTipo: "Tipo de PET",
     },
     PASTA: {
       icon: <FaBox />,
       label: " Pasta",
-      endpoint: "http://localhost:3000/api/tipos-pasta",
+      endpoint: "/tipos-pasta",
       campo: "tipo_pasta_id",
       labelTipo: "Tipo de Pasta",
     },
@@ -75,14 +77,14 @@ const VentasModal = ({ onClose }) => {
     PLASTICO: {
       icon: <FaBottleDroplet />,
       label: "Plástico",
-      endpoint: "http://localhost:3000/api/tipos-plastico",
+      endpoint: "/tipos-plastico",
       campo: "tipo_plastico_id",
       labelTipo: "Tipo de Plástico",
     },
     VIDRIO: {
       icon: <FaBottleDroplet />,
       label: "Vidrio",
-      endpoint: "...",
+      endpoint: "/tipos-vidrio",
       campo: "tipo_vidrio_id",
       labelTipo: "Tipo de Vidrio",
     },
@@ -91,10 +93,12 @@ const VentasModal = ({ onClose }) => {
   return (
     <ModalOverlay>
       <ModalContainer>
-        <CloseButton onClick={() => {
-          setTipoVenta(null);
-          onClose();
-        }}>
+        <CloseButton
+          onClick={() => {
+            setTipoVenta(null);
+            onClose();
+          }}
+        >
           <FaTimes />
         </CloseButton>
         {tipoVenta === null ? (

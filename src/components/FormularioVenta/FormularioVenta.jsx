@@ -2,16 +2,13 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { theme } from "../../styles/theme";
 import { FaPlusCircle, FaEdit, FaTrashAlt } from "react-icons/fa";
+
 import ClienteModal from "./ClienteModal";
+
+// Servicios generales
 import { obtenerClientes } from "../../services/clientesService.js";
 import { obtenerEmpleados } from "../../services/empleadosService.js";
-import { obtenerTiposPasta } from "../../services/tipoPastaService.js";
-import { obtenerTiposPet } from "../../services/tipoPetService.js";
-import { obtenerTiposVidrio } from "../../services/tipoVidrioService.js";
 import { registrarVenta } from "../../services/ventasService.js";
-import { obtenerTiposPlastico } from "../../services/tipoPlasticoServices.js";
-import { obtenerTiposAluminio } from "../../services/tipoAluminioService.js";
-import { obtenerTiposCobre } from "../../services/tipoCobreService.js";
 
 import {
   Form,
@@ -28,7 +25,15 @@ import {
   IconButton,
 } from "./styles";
 
-const FormularioVenta = ({ tipoVenta, campoTipo, labelTipo, onClose }) => {
+const FormularioVenta = ({
+  tipoVenta,
+  campoTipo,
+  labelTipo,
+  endpointTipos,
+  onClose,
+}) => {
+  const API = import.meta.env.VITE_API_URL;
+
   const initialState = {
     cliente_id: "",
     empleado_id: "",
@@ -37,24 +42,24 @@ const FormularioVenta = ({ tipoVenta, campoTipo, labelTipo, onClose }) => {
     precio_unitario: "",
     fecha_venta: "",
   };
-  const [venta, setVenta] = useState(initialState);
 
+  const [venta, setVenta] = useState(initialState);
   const [mensaje, setMensaje] = useState("");
   const [error, setError] = useState("");
 
   const [clientes, setClientes] = useState([]);
   const [empleados, setEmpleados] = useState([]);
-
   const [tiposMaterial, setTiposMaterial] = useState([]);
 
   const [mostrarModalCliente, setMostrarModalCliente] = useState(false);
   const [modoModalCliente, setModoModalCliente] = useState("crear");
   const [clienteSeleccionado, setClienteSeleccionado] = useState(null);
 
-  // Fetch dinámico al montar el componente
+  // 🔥 Fetch inicial — universal
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // CLIENTES + EMPLEADOS
         const [clientesData, empleadosData] = await Promise.all([
           obtenerClientes(),
           obtenerEmpleados(),
@@ -63,31 +68,16 @@ const FormularioVenta = ({ tipoVenta, campoTipo, labelTipo, onClose }) => {
         setClientes(clientesData);
         setEmpleados(empleadosData);
 
-        if (campoTipo && tipoVenta) {
-          let tiposData = [];
-          switch (tipoVenta) {
-            case "Cobre":
-              tiposData = await obtenerTiposCobre();
-              break;
-            case "Aluminio":
-              tiposData = await obtenerTiposAluminio();
-              break;
-            case "Pasta":
-              tiposData = await obtenerTiposPasta();
-              break;
-            case "PET":
-              tiposData = await obtenerTiposPet();
-              break;
-            case "Vidrio":
-              tiposData = await obtenerTiposVidrio();
-              break;
-            case "Plastico":
-              tiposData = await obtenerTiposPlastico();
-              break;
-            default:
-              tiposData = [];
-          }
-          setTiposMaterial(Array.isArray(tiposData) ? tiposData : []);
+        // TIPOS DINÁMICOS
+        if (endpointTipos) {
+          const url = endpointTipos.startsWith("http")
+            ? endpointTipos
+            : API + endpointTipos;
+
+          console.log("🌐 URL Fetch tipos:", url);
+
+          const res = await axios.get(url);
+          setTiposMaterial(Array.isArray(res.data) ? res.data : []);
         } else {
           setTiposMaterial([]);
         }
@@ -97,39 +87,42 @@ const FormularioVenta = ({ tipoVenta, campoTipo, labelTipo, onClose }) => {
     };
 
     fetchData();
-  }, [tipoVenta, campoTipo]);
+  }, [tipoVenta, campoTipo, endpointTipos]);
 
   const handleChange = (e) => {
     setVenta({ ...venta, [e.target.name]: e.target.value });
-    setMensaje(""); // Limpiar mensaje al cambiar campo
+    setMensaje("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validación: valores numéricos deben ser > 0
     const { cantidad_kg, precio_unitario } = venta;
+
     if (parseFloat(cantidad_kg) <= 0 || parseFloat(precio_unitario) <= 0) {
-      setError("La cantidad debe ser mayor  a 0.");
+      setError("La cantidad y el precio deben ser mayores a 0.");
       setMensaje("");
       return;
     }
 
     try {
-      await registrarVenta(tipoVenta, venta); // Esperamos la respuesta del backend
-      setVenta(initialState); // Limpiar campos
+      await registrarVenta(tipoVenta, venta);
+
+      setVenta(initialState);
       setMensaje("✅ Venta registrada exitosamente.");
       setTimeout(() => setMensaje(""), 3000);
+
       onClose?.();
     } catch (err) {
+      console.error("Error al registrar venta:", err);
       setError("❌ Error al registrar la venta. Intenta nuevamente.");
-      setMensaje("");
-      console.error("Error en el envío:", err);
       setTimeout(() => setError(""), 3000);
     }
   };
 
-  /**FUNCIONES PARA CREAR, EDITAR Y ELINAR CLIENTE */
+  /* ===========================
+      CRUD CLIENTES (MODAL)
+     =========================== */
 
   const handleCrearCliente = () => {
     setModoModalCliente("crear");
@@ -137,61 +130,53 @@ const FormularioVenta = ({ tipoVenta, campoTipo, labelTipo, onClose }) => {
     setMostrarModalCliente(true);
   };
 
-  // EDITAR
-
   const handleEditarCliente = () => {
     const cliente = clientes.find((c) => c.id === parseInt(venta.cliente_id));
-    if (cliente) {
-      console.log("Cliente para editar:", cliente);
-      setModoModalCliente("editar");
-      setClienteSeleccionado(cliente);
-      setMostrarModalCliente(true);
-    } else {
+    if (!cliente) {
       setError("Selecciona un cliente válido para editar.");
       setTimeout(() => setError(""), 3000);
+      return;
     }
-  };
 
-  /** FUNCION PARA ELIMINAR CLIENTE */
+    setModoModalCliente("editar");
+    setClienteSeleccionado(cliente);
+    setMostrarModalCliente(true);
+  };
 
   const handleEliminarCliente = () => {
     const cliente = clientes.find((c) => c.id === parseInt(venta.cliente_id));
-    if (cliente) {
-      setModoModalCliente("eliminar");
-      setClienteSeleccionado(cliente);
-      setMostrarModalCliente(true);
-    } else {
+    if (!cliente) {
       setError("Selecciona un cliente válido para eliminar.");
       setTimeout(() => setError(""), 3000);
+      return;
     }
-  };
 
-  /** FUNCION PARA GUARDAR CAMBIOS DESDE EL MODAL */
+    setModoModalCliente("eliminar");
+    setClienteSeleccionado(cliente);
+    setMostrarModalCliente(true);
+  };
 
   const handleGuardarCliente = async (datos) => {
     try {
+      const API = import.meta.env.VITE_API_URL;
+
       if (modoModalCliente === "crear") {
-        await axios.post("http://localhost:3000/api/clientes", datos);
+        await axios.post(`${API}/clientes`, datos);
         setMensaje("Cliente creado exitosamente.");
       } else if (modoModalCliente === "editar") {
-        await axios.put(
-          `http://localhost:3000/api/clientes/${datos.id}`,
-          datos
-        );
+        await axios.put(`${API}/clientes/${datos.id}`, datos);
         setMensaje("Cliente actualizado exitosamente.");
       } else if (modoModalCliente === "eliminar") {
-        await axios.delete(`http://localhost:3000/api/clientes/${datos.id}`);
+        await axios.delete(`${API}/clientes/${datos.id}`);
         setMensaje("Cliente eliminado exitosamente.");
       }
 
-      // Actualizar lista de clientes
-      const res = await axios.get("http://localhost:3000/api/clientes");
+      // Refrescar lista
+      const res = await axios.get(`${API}/clientes`);
       setClientes(res.data);
 
-      console.log("enviando datos a actualizar", datos);
       setMostrarModalCliente(false);
-      setVenta((prev) => ({ ...prev, cliente_id: "" })); // 👈 Limpiar select
-      setClienteSeleccionado(null);
+      setVenta((prev) => ({ ...prev, cliente_id: "" }));
 
       setTimeout(() => setMensaje(""), 3000);
     } catch (error) {
@@ -200,10 +185,11 @@ const FormularioVenta = ({ tipoVenta, campoTipo, labelTipo, onClose }) => {
       setTimeout(() => setError(""), 3000);
     }
   };
+
   const handleCerrarModalCliente = () => {
     setMostrarModalCliente(false);
     setClienteSeleccionado(null);
-    setVenta((prev) => ({ ...prev, cliente_id: "" })); // 👈 Limpiar select
+    setVenta((prev) => ({ ...prev, cliente_id: "" }));
   };
 
   return (
@@ -216,6 +202,7 @@ const FormularioVenta = ({ tipoVenta, campoTipo, labelTipo, onClose }) => {
       {error && <p style={{ color: "red", fontWeight: "bold" }}>{error}</p>}
 
       <Form onSubmit={handleSubmit}>
+        {/* CLIENTE */}
         <Label>Cliente</Label>
         <FieldRow>
           <Select
@@ -231,6 +218,7 @@ const FormularioVenta = ({ tipoVenta, campoTipo, labelTipo, onClose }) => {
               </option>
             ))}
           </Select>
+
           <FieldGroup>
             <IconButton
               onClick={handleCrearCliente}
@@ -255,6 +243,8 @@ const FormularioVenta = ({ tipoVenta, campoTipo, labelTipo, onClose }) => {
             </IconButton>
           </FieldGroup>
         </FieldRow>
+
+        {/* EMPLEADO */}
         <Label>Empleado</Label>
         <Select
           name="empleado_id"
@@ -270,22 +260,22 @@ const FormularioVenta = ({ tipoVenta, campoTipo, labelTipo, onClose }) => {
           ))}
         </Select>
 
+        {/* TIPOS DINÁMICOS */}
         {labelTipo && campoTipo && (
           <>
             <Label>{labelTipo}</Label>
             <Select
               name={campoTipo}
-              value={campoTipo ? venta[campoTipo] || "" : ""}
+              value={venta[campoTipo] || ""}
               onChange={handleChange}
               required
             >
               <option value="">Selecciona un tipo</option>
-              {Array.isArray(tiposMaterial) &&
-                tiposMaterial.map((tipo) => (
-                  <option key={tipo.id} value={tipo.id}>
-                    {tipo.nombre}
-                  </option>
-                ))}
+              {tiposMaterial.map((tipo) => (
+                <option key={tipo.id} value={tipo.id}>
+                  {tipo.nombre}
+                </option>
+              ))}
             </Select>
           </>
         )}
@@ -303,6 +293,7 @@ const FormularioVenta = ({ tipoVenta, campoTipo, labelTipo, onClose }) => {
               required
             />
           </Column>
+
           <Column>
             <Label>Precio (Kg)</Label>
             <Input
@@ -314,6 +305,7 @@ const FormularioVenta = ({ tipoVenta, campoTipo, labelTipo, onClose }) => {
               required
             />
           </Column>
+
           <Column>
             <Label>Fecha de Venta</Label>
             <Input
@@ -321,7 +313,6 @@ const FormularioVenta = ({ tipoVenta, campoTipo, labelTipo, onClose }) => {
               type="date"
               value={venta.fecha_venta}
               onChange={handleChange}
-              className="inputFecha"
               required
             />
           </Column>
@@ -344,3 +335,4 @@ const FormularioVenta = ({ tipoVenta, campoTipo, labelTipo, onClose }) => {
 };
 
 export default FormularioVenta;
+
