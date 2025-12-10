@@ -18,7 +18,7 @@ export const VentasChart = ({
   rango,
   setRango,
   rangoInicial,
-  conTipo = true, // por defecto asumimos que sí tiene tipos
+  conTipo = true, 
 }) => {
   const [showAlert, setShowAlert] = useState(false);
 
@@ -79,7 +79,7 @@ export const VentasChart = ({
 
       {showAlert && <p>No hay datos disponibles para el rango seleccionado.</p>}
       {data.length > 0 && (
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={310}>
           <BarChart data={data}>
             <XAxis
               dataKey={dataKeyTipo}
@@ -98,6 +98,7 @@ export const VentasChart = ({
                 />
               ))}
               <LabelList
+              fontSize={12}
                 dataKey="total_kg"
                 position="top"
                 formatter={(value) => `${value} kg`}
